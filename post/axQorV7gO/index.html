@@ -1,0 +1,329 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>MYsql存储过程，遍历查询出来的结果集 | 南岭笑笑生</title>
+<link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
+<script src="https://www.ltb.cc/media/script.js"></script>
+
+    
+
+  <meta name="description" content="BEGIN
+DECLARE aid INT;#游标赋值用
+DECLARE max_uid INT;#结束条件
+DECLARE done INT default &#39;0&#39; ;
+DECLARE u_uid INT;
+DECLARE u_leade...">
+  <script src="https://www.ltb.cc/media/prism.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+  <div class="antialiased">
+    <div class="max-w-5xl mx-auto px-6 md:px-8">
+      <div class="flex justify-between items-center mt-10">
+  <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 font-medium md:font-normal leading-none">
+    <a href="https://www.ltb.cc">南岭笑笑生</a>
+  </h1>
+  <div class="block lg:hidden" id="thumb-menu">
+    <button id="thumb-open" type="button" class="block">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6H22V7H2V6ZM2 12H22V13H2V12ZM22 18H2V19H22V18Z" class="fill-current text-gray-900"></path></svg>
+    </button>
+    <button id="thumb-close" type="button" class="hidden">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4L20 20M20 4L4 20" class="" stroke="#1A202C"></path></svg>
+    </button>
+  </div>
+</div>
+<div id="nav-list" class="lg:block hidden">
+  <div class="w-full block lg:flex lg:justify-between lg:border-b lg:border-gray-400 mt-10 text-gray-700 font-medium lg:text-lg">
+    <div class="lg:flex -mb-px">
+      
+        
+          <a href="https://www.ltb.cc/" class="nav-link">首页</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/archives" class="nav-link">归档</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/tags" class="nav-link">标签</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/post/about" class="nav-link">关于</a>
+        
+      
+    </div>
+    <div class="lg:flex">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      <a href="https://www.ltb.cc/atom.xml" class="block mt-6 lg:mt-0 lg:ml-8 flex align-center hover:text-gray-900" target="_blank">
+        <div>RSS</div>
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 -mt-px"><path d="M16.5 13V18.5H6.5V8.5H12" stroke="#4A5568"></path> <path d="M10 15L18.5 6.5" stroke="#4A5568"></path> <path d="M14 6.5H18.5V11" stroke="#4A5568"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+      <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
+        <div class="w-full md:w-2/3 mt-6">
+          <h1 class="text-4xl">MYsql存储过程，遍历查询出来的结果集</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Store/a.png" alt="">
+          
+          <div class="mt-6 lg:mt-10 post-content">
+            <p>BEGIN</p>
+<p>DECLARE aid INT;#游标赋值用<br>
+DECLARE max_uid INT;#结束条件<br>
+DECLARE done INT default '0' ;<br>
+DECLARE u_uid INT;<br>
+DECLARE u_leader_uid INT;<br>
+DECLARE f_fl_value INT;<br>
+DECLARE extcredits INT;<br>
+#declare CONTINUE HANDLER FOR SQLSTATE '02000' SET done = null;<br>
+DECLARE curb CURSOR FOR SELECT u.uid ,u.leader_uid,f.fl_value FROM <code>pre_adjfx_temp_uid</code> as u,pre_adjfx_fl as f  where  u.uid in (SELECT uid FROM <code>pre_adjfx_fl</code> where DATE_SUB(CURDATE(), INTERVAL 1 DAY) &lt;= date(datatime)) and f.status ='2' and u.uid=f.uid;#游标赋值<br>
+DECLARE cura CURSOR FOR SELECT uid FROM <code>pre_aljsfx_user</code>; #生成代理上线用户游标<br>
+declare CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1; #游标结束条件只能定义在声明游标之后 否则报错</p>
+<p>#也可以这么写</p>
+<p>#DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = null;</p>
+<p>#DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = TRUE;</p>
+<p>OPEN cura;<br>
+FETCH cura INTO aid;<br>
+WHILE ( done &lt;&gt;1) DO</p>
+<pre><code>  CALL fx_leader_user(aid);
+  SET done =0;#因为上一句的执行把done变为1了，所以必须加上这句复原，否则只执行一次
+  FETCH cura INTO aid;#如果cura游标到底了就是0
+END WHILE;
+#SELECT 'end';
+#SELECT 'kkkk';
+</code></pre>
+<p>SET done =0;<br>
+CLOSE cura;<br>
+OPEN curb;<br>
+FETCH curb INTO u_uid,u_leader_uid,f_fl_value;<br>
+WHILE ( done &lt;&gt;1) DO<br>
+SELECT extcredits1 into extcredits FROM <code>pre_common_member_count</code> where uid=u_leader_uid;#查是否还有仓储卷<br>
+IF extcredits &gt; 0 THEN<br>
+UPDATE <code>pre_common_member_count</code> SET <code>extcredits1</code>= extcredits1 -(f_fl_value<em>0.003), <code>extcredits2</code>= extcredits2 + (f_fl_value</em>0.003) WHERE (<code>uid</code>=u_leader_uid);<br>
+INSERT INTO <code>pre_adjfx_fl</code> (<code>uid</code>, <code>order_id</code>, <code>fl_value</code>,<code>status</code>) VALUES (u_leader_uid, '11111', (f_fl_value*0.003),'3');<br>
+END IF;<br>
+SET done =0;<br>
+FETCH curb INTO u_uid,u_leader_uid,f_fl_value;</p>
+<pre><code>END WHILE;
+</code></pre>
+<p>CLOSE curb;</p>
+<p>END</p>
+
+          </div>
+          
+        </div>
+        
+          <div class="w-full md:w-1/3">
+            <div class="mt-6 md:pl-8">
+              <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
+              <div class="text-lg mb-6">2020-03-09</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
+              <div class="mb-6">
+                
+                  <a href="https://www.ltb.cc/D7m1GbeP8/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">数据库</a>
+                
+              </div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
+              <div class="text-lg mb-6">2 min read</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
+              <div class="border-b border-gray-400">
+                
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/EfmUNe2Rm/" class="text-lg hover:underline my-2 inline-block">Sql计算百分比</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/7sJq0zYwT/" class="text-lg hover:underline my-2 inline-block">Mssql建立索引。</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/XT9s_vkWW/" class="text-lg hover:underline my-2 inline-block">mssql主从配置（复制/订阅）详细教程</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//monitor.0593ulive.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script data-ad-client="ca-pub-3082671907611005" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</div>
+    </div>
+  </div>
+  <script>
+    Prism.highlightAll()
+  </script>
+</body>
+</html>

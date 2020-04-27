@@ -1,0 +1,389 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>汇编学习笔记（一） | 南岭笑笑生</title>
+<link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
+<script src="https://www.ltb.cc/media/script.js"></script>
+
+    
+
+  <meta name="description" content="     ;文件名：test.asm
+     ;文件说明：硬盘主引导扇区代码
+     ;创建日期：2020-2-12 22:12 
+  
+     jmp near start
+    mytext db &#39;L&#39;,0x07,&#39;a&#39;,0x...">
+  <script src="https://www.ltb.cc/media/prism.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+  <div class="antialiased">
+    <div class="max-w-5xl mx-auto px-6 md:px-8">
+      <div class="flex justify-between items-center mt-10">
+  <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 font-medium md:font-normal leading-none">
+    <a href="https://www.ltb.cc">南岭笑笑生</a>
+  </h1>
+  <div class="block lg:hidden" id="thumb-menu">
+    <button id="thumb-open" type="button" class="block">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6H22V7H2V6ZM2 12H22V13H2V12ZM22 18H2V19H22V18Z" class="fill-current text-gray-900"></path></svg>
+    </button>
+    <button id="thumb-close" type="button" class="hidden">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4L20 20M20 4L4 20" class="" stroke="#1A202C"></path></svg>
+    </button>
+  </div>
+</div>
+<div id="nav-list" class="lg:block hidden">
+  <div class="w-full block lg:flex lg:justify-between lg:border-b lg:border-gray-400 mt-10 text-gray-700 font-medium lg:text-lg">
+    <div class="lg:flex -mb-px">
+      
+        
+          <a href="https://www.ltb.cc/" class="nav-link">首页</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/archives" class="nav-link">归档</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/tags" class="nav-link">标签</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/post/about" class="nav-link">关于</a>
+        
+      
+    </div>
+    <div class="lg:flex">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      <a href="https://www.ltb.cc/atom.xml" class="block mt-6 lg:mt-0 lg:ml-8 flex align-center hover:text-gray-900" target="_blank">
+        <div>RSS</div>
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 -mt-px"><path d="M16.5 13V18.5H6.5V8.5H12" stroke="#4A5568"></path> <path d="M10 15L18.5 6.5" stroke="#4A5568"></path> <path d="M14 6.5H18.5V11" stroke="#4A5568"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+      <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
+        <div class="w-full md:w-2/3 mt-6">
+          <h1 class="text-4xl">汇编学习笔记（一）</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Store/shuidao_daotian.jpg" alt="">
+          
+          <div class="mt-6 lg:mt-10 post-content">
+            <pre><code>     ;文件名：test.asm
+     ;文件说明：硬盘主引导扇区代码
+     ;创建日期：2020-2-12 22:12 
+  
+     jmp near start
+    mytext db 'L',0x07,'a',0x07,'b',0x07,'e',0x07,'l',0x07,' ',0x07,'o',0x07,\
+    'f',0x07,'f',0x07,'s',0x07,'e',0x07,'t',0x07,':',0x07
+    number db 0,0,0,0,0
+     start:
+     mov ax,0x7c0                  ;设置数据段基地址 
+     mov ds,ax
+     
+     mov ax,0xb800                 ;设置附加段基地址 
+     mov es,ax                     ;0xb800 为显示缓冲区，显卡专用地址
+     
+     cld                           ;方向标志位，相反的是std
+     mov si,mytext                 ;ds:si 为传送源地址
+     mov di,0                      ;es:di为传送目的地址
+     mov cx,(number-mytext)/2      ;实际上等于 13 要传送的实际数量
+     rep movsw                     ;rep 重复执行 cx 次，每执行一次cx减1
+ 
+     ;得到标号所代表的偏移地址
+     mov ax,number                 ;设置基址
+     
+     ;计算各个数位
+     mov bx,ax                     ;bx 段寄存器，保存基址
+     mov cx,5                      ;循环次数 
+     mov si,10                     ;除数 
+    digit: 
+     xor dx,dx                     ;或非门，把dx清零。
+     div si                        ;执行除法，用ax除以si结果存在dx中
+     mov [bx],dl                   ;保存数位
+     inc bx                        ;inc bx内容加1 dec是减1
+     loop digit                    ;循环执行
+     
+     ;显示各个数位
+     mov bx,number                 ;取得地址
+     mov si,4                      ;偏移,从高位往你位依次显示            
+     show:
+     mov al,[bx+si]                ;传送到al中
+     add al,0x30                   ;转换为assci码
+     mov ah,0x04                   ;显示属性
+     mov [es:di],ax                ;传送到es显示缓冲区
+     add di,2                      ;DI加上2以指向下一个缓冲区
+     dec si                        ;si减1，也就number的地址一直向下走
+     jns show                      ;如果标志寄存器符号位（SF)不为0就跳转到jshow执行，
+                                   ;dec减到0就就会把SF弄为0 SI的初始值为4，当执行到最后一个
+                                   ;时，也就是为0时再减1就成负数 了，产生了错位。于是最高位为1，因最高位为1故SF为1了
+                                   
+     
+     mov word [es:di],0x0744       
+
+     jmp near $
+      times 510-($-$$) db 0
+               db 0x55,0xaa
+</code></pre>
+<p>;其他符号位<br>
+;奇偶标志位PF 计算结果低8位有1的总数是偶的话就为1，否则为0<br>
+;进位标志CF，计算结果如果最高位有向前进位或借位的情况发生则CF等于1，否则为0，少数指令除外，如inc和dec<br>
+;溢出标志OF，用于指出两个有符号运算是否正确，它假定你进行的都是有符号运算，无符号运算可以忽略。正确的OF=0<br>
+;现在指令对标志位的影响<br>
+;OF是溢出标志位指示有符号运算是否正确<br>
+;SF有符号位，计算结果最高位为0，就是0，否则 是1<br>
+;ZF零标志位，计算结果为0这一位为1，否则为0<br>
+;CF进位标志，当add或shl指令操作有进位时cf置1、否则置0。<br>
+;AF为辅助进位标志，对10进制数的运算进位仅仅标识。<br>
+;PF为奇偶标志位，如果计算结果，低8位中有偶个数为1则PF为1否则为0<br>
+;ADD加法指令，影响CF,SF,OF,ZF,AF<br>
+;CBW 字节转换为字指令执行的操作：AL的内容扩展到AH,形成AX中的字。不影响任何位<br>
+;CLD 方向指令 cld使DF 复位 DF=0,其他的标志位未定义。不要在程序中依赖这些标志<br>
+;CWD是汇编语言中字到双字符的扩展指令,不影响任何标志位<br>
+;DEC( DECrement ) 减1指令 CF标志不受影响，其他指令依计算结果而定。<br>
+;div为无符号除法,idiv为有符号除法,对所有标志位未定义<br>
+;inc加1指令 CF标志位不受影响。其他的依计算结果 而定。<br>
+;mov/movs 普通的mov指令 做符号扩展的movs 不影响任何标志<br>
+;NEG命令就是取反+1,也就是补码，如计算结果 为0则CF为1，对其他标志位没影响<br>
+;std置方向标志1,DF=1<br>
+;SUB减法指令，依计算结果而定<br>
+;XOR异或指令，OF=0,CF=0,其他依计算结果而定。<br>
+;JCC是一条指令族，功能是根据某些条件进行转移。<br>
+;JNS当SF（符号位）是0的时候就跳转<br>
+;JS跟上面相反，如果 SF是1的时候就跳转<br>
+;JZ的意思是ZF（0标志位）为1则跳转，JNZ不为1则跳转<br>
+;JO的意思 是OF(溢出标志位)标志位为1则跳转，jNO不为1则跳转<br>
+;JC是是CF(进位标志)为1则跳转，JNC相反为0就跳转<br>
+;JP是PF为1则跳转，JNP相反<br>
+;cmp比较指令，cmp我sub一样都是做减法运算，但不同的是cmp不保存结果 ，cmp将会影响CF,OF,SF,ZF,AF和PF标志位。如：<br>
+;cmp ax bx<br>
+;ax 是被测量对象，bx是测量基准。<br>
+;比较完后就用下面指令进行跳转。<br>
+;靠于就跳转用je (Equal) 相减结果为0，故ZF=1；不等于是jne (not  Equal),ZF为0<br>
+;大于 Greater 用JG 只用于有符号比较。SF=OF,ZF=0<br>
+;大于或等于，jge (Greater OR Equal) SF=OF<br>
+;不大于，JNG (not Greater) 只用于有符号比较 ZF=1 SF!=OF<br>
+;不大于等于 JNGE (not Greater OR Equal) SF!=OF<br>
+;小于 JL (less) 小于，等同于JNGE<br>
+;小于等于 JLE (Less or Equal) 等同于 JNG<br>
+;不小于 JNL (not Less) 等同于jge<br>
+;不小于等于 (not Less or Equal) jnle 等于jg<br>
+;下面用于无符号比较<br>
+;高于 ja (above) CF=0 ZF=0<br>
+;高于等于 jae (above or Equal) cf=0<br>
+;不高于 jna (not above) cf等于1或者zf=1 等同于jbe (低于等于)<br>
+;不高于等于 jnae (not above or Equal) cf=1 等同于jb<br>
+;低于 Below jb CF=1<br>
+;低于等于 jbe (Below or Equal) CF=1或ZF=1<br>
+;不等于 jnb (not Below) cf=0<br>
+;不低于等于 (not Below or Equal) jnbe cf=0或 zf=0<br>
+;校验为偶 jpe (parity even) PF=1<br>
+;校验为奇 jpo (parity Odd) pf=0<br>
+;最后一个校验指令 jcxz 当CX寄存器为0时则跳转。</p>
+
+          </div>
+          
+        </div>
+        
+          <div class="w-full md:w-1/3">
+            <div class="mt-6 md:pl-8">
+              <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
+              <div class="text-lg mb-6">2018-12-12</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
+              <div class="mb-6">
+                
+                  <a href="https://www.ltb.cc/cC8pzh9Pu/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">汇编</a>
+                
+              </div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
+              <div class="text-lg mb-6">6 min read</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
+              <div class="border-b border-gray-400">
+                
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/MoGeZlY-J/" class="text-lg hover:underline my-2 inline-block">安卓apk反编译过程</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+
+
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//monitor.0593ulive.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script data-ad-client="ca-pub-3082671907611005" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</div>
+    </div>
+  </div>
+  <script>
+    Prism.highlightAll()
+  </script>
+</body>
+</html>

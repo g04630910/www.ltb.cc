@@ -1,0 +1,310 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Sql计算百分比 | 南岭笑笑生</title>
+<link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
+<script src="https://www.ltb.cc/media/script.js"></script>
+
+    
+
+  <meta name="description" content="SELECT num,总数, ROUND(b.&amp;quot;总数&amp;quot;*1.00/393,10) as 百分比 from (SELECT num,COUNT(num) as 总数 FROM &amp;quot;kai&amp;quot; GROUP B...">
+  <script src="https://www.ltb.cc/media/prism.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+  <div class="antialiased">
+    <div class="max-w-5xl mx-auto px-6 md:px-8">
+      <div class="flex justify-between items-center mt-10">
+  <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 font-medium md:font-normal leading-none">
+    <a href="https://www.ltb.cc">南岭笑笑生</a>
+  </h1>
+  <div class="block lg:hidden" id="thumb-menu">
+    <button id="thumb-open" type="button" class="block">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6H22V7H2V6ZM2 12H22V13H2V12ZM22 18H2V19H22V18Z" class="fill-current text-gray-900"></path></svg>
+    </button>
+    <button id="thumb-close" type="button" class="hidden">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4L20 20M20 4L4 20" class="" stroke="#1A202C"></path></svg>
+    </button>
+  </div>
+</div>
+<div id="nav-list" class="lg:block hidden">
+  <div class="w-full block lg:flex lg:justify-between lg:border-b lg:border-gray-400 mt-10 text-gray-700 font-medium lg:text-lg">
+    <div class="lg:flex -mb-px">
+      
+        
+          <a href="https://www.ltb.cc/" class="nav-link">首页</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/archives" class="nav-link">归档</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/tags" class="nav-link">标签</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/post/about" class="nav-link">关于</a>
+        
+      
+    </div>
+    <div class="lg:flex">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      <a href="https://www.ltb.cc/atom.xml" class="block mt-6 lg:mt-0 lg:ml-8 flex align-center hover:text-gray-900" target="_blank">
+        <div>RSS</div>
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 -mt-px"><path d="M16.5 13V18.5H6.5V8.5H12" stroke="#4A5568"></path> <path d="M10 15L18.5 6.5" stroke="#4A5568"></path> <path d="M14 6.5H18.5V11" stroke="#4A5568"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+      <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
+        <div class="w-full md:w-2/3 mt-6">
+          <h1 class="text-4xl">Sql计算百分比</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Xcx/coin.gif" alt="">
+          
+          <div class="mt-6 lg:mt-10 post-content">
+            <p>SELECT num,总数, ROUND(b.&quot;总数&quot;*1.00/393,10) as 百分比 from (SELECT num,COUNT(num) as 总数 FROM &quot;kai&quot; GROUP BY num) b ORDER BY 百分比 desc</p>
+<p>14	39	0.0992366412<br>
+12	38	0.096692112<br>
+11	33	0.0839694656<br>
+13	31	0.0788804071<br>
+15	30	0.0763358779<br>
+17	23	0.058524173<br>
+19	23	0.058524173<br>
+16	22	0.0559796438<br>
+8	21	0.0534351145<br>
+10	20	0.0508905852<br>
+18	19	0.048346056<br>
+20	17	0.0432569975<br>
+9	14	0.0356234097<br>
+7	13	0.0330788804<br>
+21	12	0.0305343511<br>
+4	7	0.0178117048<br>
+5	5	0.0127226463<br>
+6	5	0.0127226463<br>
+22	5	0.0127226463<br>
+23	5	0.0127226463<br>
+25	4	0.010178117<br>
+2	2	0.0050890585<br>
+24	2	0.0050890585<br>
+3	1	0.0025445293<br>
+26	1	0.0025445293<br>
+27	1	0.0025445293</p>
+
+          </div>
+          
+        </div>
+        
+          <div class="w-full md:w-1/3">
+            <div class="mt-6 md:pl-8">
+              <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
+              <div class="text-lg mb-6">2020-04-07</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
+              <div class="mb-6">
+                
+                  <a href="https://www.ltb.cc/D7m1GbeP8/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">数据库</a>
+                
+              </div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
+              <div class="text-lg mb-6">1 min read</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
+              <div class="border-b border-gray-400">
+                
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/7sJq0zYwT/" class="text-lg hover:underline my-2 inline-block">Mssql建立索引。</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/XT9s_vkWW/" class="text-lg hover:underline my-2 inline-block">mssql主从配置（复制/订阅）详细教程</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/axQorV7gO/" class="text-lg hover:underline my-2 inline-block">MYsql存储过程，遍历查询出来的结果集</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//monitor.0593ulive.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script data-ad-client="ca-pub-3082671907611005" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</div>
+    </div>
+  </div>
+  <script>
+    Prism.highlightAll()
+  </script>
+</body>
+</html>

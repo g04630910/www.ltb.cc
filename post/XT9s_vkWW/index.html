@@ -1,0 +1,311 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>mssql主从配置（复制/订阅）详细教程 | 南岭笑笑生</title>
+<link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
+<script src="https://www.ltb.cc/media/script.js"></script>
+
+    
+
+  <meta name="description" content="mssqlserver主从配置踩过的坑：
+写写这几天做MS SQL Server主从配置（复制/订阅）踩过的坑。
+以下操作都要在host上把主机名做指向
+一、按网上的教程做，如果你的机子不是在同一局域网内，并且设置好共享，Microsoft...">
+  <script src="https://www.ltb.cc/media/prism.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+  <div class="antialiased">
+    <div class="max-w-5xl mx-auto px-6 md:px-8">
+      <div class="flex justify-between items-center mt-10">
+  <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 font-medium md:font-normal leading-none">
+    <a href="https://www.ltb.cc">南岭笑笑生</a>
+  </h1>
+  <div class="block lg:hidden" id="thumb-menu">
+    <button id="thumb-open" type="button" class="block">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6H22V7H2V6ZM2 12H22V13H2V12ZM22 18H2V19H22V18Z" class="fill-current text-gray-900"></path></svg>
+    </button>
+    <button id="thumb-close" type="button" class="hidden">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4L20 20M20 4L4 20" class="" stroke="#1A202C"></path></svg>
+    </button>
+  </div>
+</div>
+<div id="nav-list" class="lg:block hidden">
+  <div class="w-full block lg:flex lg:justify-between lg:border-b lg:border-gray-400 mt-10 text-gray-700 font-medium lg:text-lg">
+    <div class="lg:flex -mb-px">
+      
+        
+          <a href="https://www.ltb.cc/" class="nav-link">首页</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/archives" class="nav-link">归档</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/tags" class="nav-link">标签</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/post/about" class="nav-link">关于</a>
+        
+      
+    </div>
+    <div class="lg:flex">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      <a href="https://www.ltb.cc/atom.xml" class="block mt-6 lg:mt-0 lg:ml-8 flex align-center hover:text-gray-900" target="_blank">
+        <div>RSS</div>
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 -mt-px"><path d="M16.5 13V18.5H6.5V8.5H12" stroke="#4A5568"></path> <path d="M10 15L18.5 6.5" stroke="#4A5568"></path> <path d="M14 6.5H18.5V11" stroke="#4A5568"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+      <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
+        <div class="w-full md:w-2/3 mt-6">
+          <h1 class="text-4xl">mssql主从配置（复制/订阅）详细教程</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Uploads/mssql%E5%85%B1%E4%BA%AB.png" alt="">
+          
+          <div class="mt-6 lg:mt-10 post-content">
+            <h2 id="mssqlserver主从配置踩过的坑">mssqlserver主从配置踩过的坑：</h2>
+<h1 id="写写这几天做ms-sql-server主从配置复制订阅踩过的坑">写写这几天做MS SQL Server主从配置（复制/订阅）踩过的坑。</h1>
+<p>以下操作都要在host上把主机名做指向<br>
+一、按网上的教程做，如果你的机子不是在同一局域网内，并且设置好共享，Microsoft SQL Server代理启动用户还必须得两台机子一样，帐号一样，密码一样，并且要有权限访问该共享文件夹。<br>
+注意 ：同一局域网内，共享，代理启动帐号几个必要条件缺一不可。<br>
+<img src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Uploads/mssql%E5%85%B1%E4%BA%AB.png"/><br>
+二、如果你不具备上述条件，那也有办法，在新建订阅的时候选择在分发服务器上运行所有代理（推送订阅），但实践证明会导致主mssqlserver服务器CPU 100%(不推荐)。<br>
+<img src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Uploads/mssql2.png"/><br>
+三、还有一种方法就是，建立一个VPN把服务器弄到一个子网内。但是一定要把在远程网络上使用网关点掉。<br>
+如下图：<br>
+<img src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Uploads/mssql3.png"/><br>
+四、主从配置默认是不复制约束和索引的。<br>
+备注几个命令：<br>
+windows 查询运行程序执行参数：<br>
+C:\Users\Administrator&gt;wmic process where caption=&quot;phantomjs.exe&quot; get caption commandline /value&gt;C:\qkd_web\qkd.spider\test.txt</p>
+<p>windows 软/硬链接<br>
+mklink<br>
+格式：MKLINK [[/D] | [/H] | [/J]] 链接名称 目标<br>
+语法介绍：<br>
+win+r--&gt;cmd--&gt;输入mklink</p>
+<p>/d 给目录创建符号链接，简称符号链接、软链接；<br>
+/h 创建硬链接，简称硬链接；<br>
+/j 给目录创建联接点，简称软链接</p>
+<p>一般用/d<br>
+/h实践证明不能链接非同一分区内的目录。</p>
+
+          </div>
+          
+        </div>
+        
+          <div class="w-full md:w-1/3">
+            <div class="mt-6 md:pl-8">
+              <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
+              <div class="text-lg mb-6">2020-03-27</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
+              <div class="mb-6">
+                
+                  <a href="https://www.ltb.cc/D7m1GbeP8/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">数据库</a>
+                
+              </div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
+              <div class="text-lg mb-6">2 min read</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
+              <div class="border-b border-gray-400">
+                
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/EfmUNe2Rm/" class="text-lg hover:underline my-2 inline-block">Sql计算百分比</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/7sJq0zYwT/" class="text-lg hover:underline my-2 inline-block">Mssql建立索引。</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/axQorV7gO/" class="text-lg hover:underline my-2 inline-block">MYsql存储过程，遍历查询出来的结果集</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//monitor.0593ulive.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script data-ad-client="ca-pub-3082671907611005" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</div>
+    </div>
+  </div>
+  <script>
+    Prism.highlightAll()
+  </script>
+</body>
+</html>

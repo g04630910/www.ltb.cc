@@ -3,15 +3,15 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>火狐编译学习 | 南岭笑笑生</title>
+<title>An unhandled exception occurred: Cannot find module &#39;@angular-devkit/build-angular/package.json&#39; | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="C:\firefox-74.0\browser\branding\unofficial\configure.sh 可定制火狐，修改信息
-rustup default stable-x86_64-pc-windows-msv 编译64位火狐
-...">
+  <meta name="description" content="使用angular框架执行ng build报错：
+`PS D:\桌面\Theme&gt; ng build`
+`An unhandled exception occurred: Cannot find module &#39;@angular-devki...">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -83,29 +83,27 @@ rustup default stable-x86_64-pc-windows-msv 编译64位火狐
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">火狐编译学习</h1>
-          
-            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/firefox.jpg" alt="">
+          <h1 class="text-4xl">An unhandled exception occurred: Cannot find module &#39;@angular-devkit/build-angular/package.json&#39;</h1>
           
           <div class="mt-6 lg:mt-10 post-content">
-            <p>C:\firefox-74.0\browser\branding\unofficial\configure.sh 可定制火狐，修改信息<br>
-rustup default stable-x86_64-pc-windows-msv 编译64位火狐<br>
-下面是我的配置文件<br>
-（编译64位的）<br>
-#ac_add_options --with-clang-path=&quot;C:/LLVM/bin/clang.exe&quot;<br>
-ac_add_options --with-libclang-path=&quot;C:/LLVM/bin&quot;<br>
-ac_add_options --disable-debug-symbols<br>
-#ac_add_options --with-libclang-path=&quot;C:/LLVM32/bin&quot;<br>
-#ac_add_options --disable-debug-symbols<br>
-ac_add_options --target=x86_64-pc-mingw32<br>
-ac_add_options --host=x86_64-pc-mingw32<br>
-ac_add_options --disable-updater<br>
-ac_add_options --disable-accessibility<br>
-ac_add_options --disable-crashreporter<br>
-ac_add_options --with-branding=unofficial<br>
-ac_add_options --disable-tests<br>
-ac_add_options --disable-parental-controls</p>
-
+            <h2>使用angular框架执行ng build报错：</h2>
+`PS D:\桌面\Theme> ng build`
+`An unhandled exception occurred: Cannot find module '@angular-devkit/build-angular/package.json'`
+`Require stack:`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@angular-devkit\architect\node\node-modules-architect-host.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@angular-devkit\architect\node\index.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\models\architect-command.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\commands\build-impl.js` `C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@angular-devkit\schematics\tools\export-ref.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\node_modules\@angular-devkit\schematics\tools\index.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\utilities\json-schema.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\models\command-runner.js`
+`C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\lib\cli\index.js`
+` C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\lib\init.js`
+  `C:\Users\admin\AppData\Roaming\npm\node_modules\@angular\cli\bin\ng`
+`See "C:\Users\admin\AppData\Local\Temp\ng-LIt5Bj\angular-errors.log" for further details.'`
+<h2>解决方法：</h2>
+工程根目录下执行
+`npm i --save-dev @angular-devkit/build-angular`
           </div>
           
         </div>
@@ -113,24 +111,20 @@ ac_add_options --disable-parental-controls</p>
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-03-04</div>
+              <div class="text-lg mb-6">2020-05-03</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
                 
-                  <a href="https://www.ltb.cc/mzbvBTc73/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">C++</a>
+                  <a href="https://www.ltb.cc/v-lxRDNPq/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">WEB服务器</a>
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">1 min read</div>
+              <div class="text-lg mb-6">2 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
 
   
-    
-      
-    
-  
 
   
     
@@ -148,92 +142,6 @@ ac_add_options --disable-parental-controls</p>
     
       
     
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
   
 
   
@@ -241,8 +149,108 @@ ac_add_options --disable-parental-controls</p>
       
         
         <div class="border-t border-gray-400 py-6">
-          <a href="https://www.ltb.cc/post/jie-jue-guo-nei-windows-an-zhuang-rust-man-wen-ti/" class="text-lg hover:underline my-2 inline-block">解决国内windows安装RUST慢问题</a>
+          <a href="https://www.ltb.cc/post/q4Sy914eC/" class="text-lg hover:underline my-2 inline-block">apache报错 Function not implemented: AH00141: Could not initialize random number genera</a>
         </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/61xQOPTM1/" class="text-lg hover:underline my-2 inline-block">请求被中止: 未能创建 SSL/TLS 安全通道。</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/Zk4QJSMvq/" class="text-lg hover:underline my-2 inline-block">LINUX检查开放端口</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
       
     
   

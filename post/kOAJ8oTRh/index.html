@@ -1,0 +1,390 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>BTC开发学习 | 南岭笑笑生</title>
+<link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
+<script src="https://www.ltb.cc/media/script.js"></script>
+
+    
+
+  <meta name="description" content="USTD下载地址：https://github.com/OmniLayer/omnicore/releases
+etc下载地址：https://github.com/ethereumproject/go-ethereum/releases
+...">
+  <script src="https://www.ltb.cc/media/prism.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+  <div class="antialiased">
+    <div class="max-w-5xl mx-auto px-6 md:px-8">
+      <div class="flex justify-between items-center mt-10">
+  <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 font-medium md:font-normal leading-none">
+    <a href="https://www.ltb.cc">南岭笑笑生</a>
+  </h1>
+  <div class="block lg:hidden" id="thumb-menu">
+    <button id="thumb-open" type="button" class="block">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6H22V7H2V6ZM2 12H22V13H2V12ZM22 18H2V19H22V18Z" class="fill-current text-gray-900"></path></svg>
+    </button>
+    <button id="thumb-close" type="button" class="hidden">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4L20 20M20 4L4 20" class="" stroke="#1A202C"></path></svg>
+    </button>
+  </div>
+</div>
+<div id="nav-list" class="lg:block hidden">
+  <div class="w-full block lg:flex lg:justify-between lg:border-b lg:border-gray-400 mt-10 text-gray-700 font-medium lg:text-lg">
+    <div class="lg:flex -mb-px">
+      
+        
+          <a href="https://www.ltb.cc/" class="nav-link">首页</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/archives" class="nav-link">归档</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/tags" class="nav-link">标签</a>
+        
+      
+        
+          <a href="https://www.ltb.cc/post/about" class="nav-link">关于</a>
+        
+      
+    </div>
+    <div class="lg:flex">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      <a href="https://www.ltb.cc/atom.xml" class="block mt-6 lg:mt-0 lg:ml-8 flex align-center hover:text-gray-900" target="_blank">
+        <div>RSS</div>
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 -mt-px"><path d="M16.5 13V18.5H6.5V8.5H12" stroke="#4A5568"></path> <path d="M10 15L18.5 6.5" stroke="#4A5568"></path> <path d="M14 6.5H18.5V11" stroke="#4A5568"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+      <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
+        <div class="w-full md:w-2/3 mt-6">
+          <h1 class="text-4xl">BTC开发学习</h1>
+          
+          <div class="mt-6 lg:mt-10 post-content">
+            <p>USTD下载地址：https://github.com/OmniLayer/omnicore/releases<br>
+etc下载地址：https://github.com/ethereumproject/go-ethereum/releases<br>
+BTC开发学习</p>
+<p>下载地址：https://bitcoin.org/bin/bitcoin-core-0.17.1/bitcoin-0.17.1-x86_64-linux-gnu.tar.gz<br>
+一定要这个版本，网上教程都是以这个版本为蓝本的。<br>
+ln -fs /home/bitcoin-0.17.1 /opt/bitcoin<br>
+ln -fs /home/bitcoin-0.17.1/bin/bitcoind /usr/local/bin/bitcoind<br>
+ln -fs /home/bitcoin-0.17.1/bin/bitcoin-cli /usr/local/bin/bitcoin-cli<br>
+配置文件（测试环境)</p>
+<h1 id="~bitcoinbitcoinconf">~/.bitcoin/bitcoin.conf</h1>
+<p>datadir=/home/btc_data<br>
+dbcache=10240<br>
+txindex=1<br>
+rpcuser=aaabbb<br>
+rpcpassword=123456<br>
+daemon=1<br>
+server=1<br>
+rest=1<br>
+gen=1<br>
+rpcallowip=0.0.0.0/0<br>
+deprecatedrpc=accounts<br>
+#local testnet<br>
+regtest=1<br>
+[regtest]<br>
+rpcbind=0.0.0.0:18443</p>
+<p>bitcoind -daemon<br>
+bitcoin-cli stop</p>
+<p>下面是命令大全<br>
+#查看钱包信息<br>
+bitcoin-cli -regtest getwalletinfo</p>
+<p>#挖101个block,挖矿奖励在100个block后才能使用<br>
+bitcoin-cli -regtest generate 101</p>
+<p>#查看挖矿奖励<br>
+bitcoin-cli -regtest getbalance<br>
+#查看默认hash地址<br>
+bitcoin-cli -regtest getaccountaddress &quot;&quot;</p>
+<h1 id="2muecwwme7szzuxpe2nyvhguxx7kaaocbpj">2MueCwwme7SZzuXpe2NYvHGUxx7KaaoCbpj</h1>
+<p>#生成新的地址<br>
+bitcoin-cli -regtest getnewaddress &quot;test&quot;<br>
+2Myr43NbpxMM3W2iTq5ifec66wFwNVWyMeM<br>
+#查看私钥<br>
+bitcoin-cli dumpprivkey 2Myr43NbpxMM3W2iTq5ifec66wFwNVWyMeM</p>
+<p>#账户列表<br>
+bitcoin-cli listaccounts</p>
+<p>#在test账户新建地址<br>
+bitcoin-cli -regtest getnewaddress &quot;test&quot;</p>
+<h1 id="2naq5qxcpcqcoscxdymrpxzoxaju9h2misi">2NAq5QXCPCQcosCxdYMrPxZoXAjU9h2misi</h1>
+<p>#查看账户test下的地址<br>
+bitcoin-cli getaddressesbyaccount &quot;test&quot;<br>
+#查地址所属账户<br>
+bitcoin-cli getaccount 2NAq5QXCPCQcosCxdYMrPxZoXAjU9h2misi<br>
+#查看账户余额<br>
+bitcoin-cli getbalance &quot;test&quot;<br>
+#查看地址收到币的数量<br>
+bitcoin-cli getreceivedbyaddress 2NAq5QXCPCQcosCxdYMrPxZoXAjU9h2misi</p>
+<p>#从默认账户给目标地址转账<br>
+bitcoin-cli sendtoaddress &quot;2NAq5QXCPCQcosCxdYMrPxZoXAjU9h2misi&quot; 0.1<br>
+#从指定账户转账<br>
+bitcoin-cli sendfrom &quot;test&quot; &quot;n3BMgZMA26TcHnVa5iNJeB3PMqkF3cEWBE&quot; 0.01</p>
+<p>#生成一个区块，使得交易得到确认(测试网络使用）<br>
+bitcoin-cli -regtest generate 1<br>
+#再次查看账户余额<br>
+bitcoin-cli getbalance &quot;test&quot;</p>
+<p>#查看收到的比特币<br>
+bitcoin-cli -regtest listreceivedbyaddress</p>
+<p>#查看交易详情<br>
+bitcoin-cli gettransaction 550d0bab60193a5edfd2636b6187bbdd557eb167a800b8f8d88edb1a037f19bd<br>
+#查看raw交易<br>
+bitcoin-cli getrawtransaction d0bab60193a5edfd2636b6187bbdd557eb167a800b8f8d88edb1a037f19bd</p>
+<h1 id="rpc-api访问测试查询getwalletinfo">rpc api访问测试,查询getwalletinfo</h1>
+<p>curl -s -X POST --user btc:btc2018  <br>
+-H 'content-type: text/plain;' http://127.0.0.1:18443/ <br>
+--data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getwalletinfo&quot;, &quot;params&quot;: [] }'</p>
+<p>#命令列表<br>
+bitcoin-cli help<br>
+#某个命令的详细帮助信息<br>
+bitcoin-cli help sendtoaddress</p>
+<p>以下是编译安装 的一些信息<br>
+　出现报错：原因是找不到berkeleyDB的相关头文件导致的（参考 https://blog.csdn.net/xocoder/article/details/78914576）</p>
+<p>报错：libdb_cxx headers missing, Bitcoin Core requires this library for wallet functionality (–disable-wallet to disable wallet functionality)</p>
+<p>上面安装db的脚本执行后其实会提示：</p>
+<p>When compiling bitcoind, run <code>./configure</code> in the following way:</p>
+<p>export BDB_PREFIX='/home/zhang/bitcoin/db4'<br>
+./configure BDB_LIBS=&quot;-L<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>B</mi><mi>D</mi><msub><mi>B</mi><mi>P</mi></msub><mi>R</mi><mi>E</mi><mi>F</mi><mi>I</mi><mi>X</mi></mrow><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mi>b</mi><mo>−</mo><mi>l</mi><mi>d</mi><msub><mi>b</mi><mi>c</mi></msub><mi>x</mi><mi>x</mi><mo>−</mo><mn>4.8</mn><mi mathvariant="normal">&quot;</mi><mi>B</mi><mi>D</mi><msub><mi>B</mi><mi>C</mi></msub><mi>F</mi><mi>L</mi><mi>A</mi><mi>G</mi><mi>S</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mo>−</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">{BDB_PREFIX}/lib -ldb_cxx-4.8&quot; BDB_CFLAGS=&quot;-I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord">4</span><span class="mord">.</span><span class="mord">8</span><span class="mord">&quot;</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault">L</span><span class="mord mathdefault">A</span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span></span>{BDB_PREFIX}/include&quot; ...</p>
+<p>所以，应当设置bash环境变量BDB_PREFIX为刚才指定的安装目录，并在configure时，提供这个环境变量</p>
+<p>解决步骤：</p>
+<p>vim ~/.bashrc<br>
+export BDB_PREFIX='/home/zhang/bitcoin/db4'</p>
+<p>source ~/.bashrc<br>
+./configure BDB_LIBS=&quot;-L<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>B</mi><mi>D</mi><msub><mi>B</mi><mi>P</mi></msub><mi>R</mi><mi>E</mi><mi>F</mi><mi>I</mi><mi>X</mi></mrow><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mi>b</mi><mo>−</mo><mi>l</mi><mi>d</mi><msub><mi>b</mi><mi>c</mi></msub><mi>x</mi><mi>x</mi><mo>−</mo><mn>4.8</mn><mi mathvariant="normal">&quot;</mi><mi>B</mi><mi>D</mi><msub><mi>B</mi><mi>C</mi></msub><mi>F</mi><mi>L</mi><mi>A</mi><mi>G</mi><mi>S</mi><mo>=</mo><mi mathvariant="normal">&quot;</mi><mo>−</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">{BDB_PREFIX}/lib -ldb_cxx-4.8&quot; BDB_CFLAGS=&quot;-I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">x</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord">4</span><span class="mord">.</span><span class="mord">8</span><span class="mord">&quot;</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault">L</span><span class="mord mathdefault">A</span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span></span>{BDB_PREFIX}/include&quot;</p>
+<pre><code>编译
+</code></pre>
+<p>make<br>
+make install</p>
+
+          </div>
+          
+        </div>
+        
+          <div class="w-full md:w-1/3">
+            <div class="mt-6 md:pl-8">
+              <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
+              <div class="text-lg mb-6">2020-05-07</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
+              <div class="mb-6">
+                
+                  <a href="https://www.ltb.cc/mzbvBTc73/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">C++</a>
+                
+              </div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
+              <div class="text-lg mb-6">4 min read</div>
+              <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
+              <div class="border-b border-gray-400">
+                
+
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/huo-hu-bian-yi-xue-xi/" class="text-lg hover:underline my-2 inline-block">火狐编译学习</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/jie-jue-guo-nei-windows-an-zhuang-rust-man-wen-ti/" class="text-lg hover:underline my-2 inline-block">解决国内windows安装RUST慢问题</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
+  <!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//monitor.0593ulive.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script data-ad-client="ca-pub-3082671907611005" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</div>
+    </div>
+  </div>
+  <script>
+    Prism.highlightAll()
+  </script>
+</body>
+</html>

@@ -89,6 +89,12 @@
           <div class="mt-6 lg:mt-10 post-content">
             <p>原来是这样Regex m4 = new Regex(&quot;&lt;img src=(?<image>(.<em>))&quot;&gt;&quot;);<br>
 改后是这样Regex m4 = new Regex(&quot;&lt;img src=(?<image>(.</em>?))(?=[&gt;])&quot;); 在最后加一个？=<br>
+Getunit(result40, &quot;(?&lt;=(开始字符串))[.\s\S]*?(?=(结束字符串))&quot;)</p>
+<p><code>string rsp = @'{\r\n \&quot;mof4BZanVTH5cXEagkQbGiPKiNypZ44a8L\&quot;: {\r\n \&quot;purpose\&quot;: \&quot;receive\&quot;\r\n },\r\n \&quot;2N9vzLfHeiWe6iDWocJEZy9BnEBszNmbDcc\&quot;: {\r\n \&quot;purpose\&quot;: \&quot;receive\&quot;\r\n },\r\n \&quot;bcrt1qt9ynl3q2824sx3ywevpsn0t7rkmhaksyy4s8zz\&quot;: {\r\n \&quot;purpose\&quot;: \&quot;receive\&quot;\r\n }\r\n}'</code><br>
+<code>string s= Json(rsp).Content.ToString();</code><br>
+<code>Regex reg = new Regex(&quot;(?&lt;=(\r\n \&quot;))[.\\s\\S]*?(?=(\\\&quot;: {\r\n \\\&quot;purpose))&quot;);</code><br>
+<code>var matchs = reg.Matches(s);</code><br>
+<code>value[0].addresslist.Add(matchs[1].Groups[0].Value);</code><br>
 莫名奇妙，正则匹配后断头少尾的。</p>
 
           </div>

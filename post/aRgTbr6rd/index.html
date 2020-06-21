@@ -3,14 +3,17 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>centos 安装zbar 增加PHP识别二维码功能，php-zbarcode 安装 | 南岭笑笑生</title>
+<title>挂载谷歌网盘google drive | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="yum install pdftk ImageMagick ImageMagick-devel ghostscript python-imaging python-devel
-在 http://zbar.sourceforge.net/do...">
+  <meta name="description" content="挂载谷歌网盘google drive
+1、安装依赖包。
+yum -y install epel-release
+yum -y install wget unzip screen fuse fuse-devel
+2、安装 Rclone (am...">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -82,68 +85,30 @@
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">centos 安装zbar 增加PHP识别二维码功能，php-zbarcode 安装</h1>
+          <h1 class="text-4xl">挂载谷歌网盘google drive</h1>
           
           <div class="mt-6 lg:mt-10 post-content">
-            <p>yum install pdftk ImageMagick ImageMagick-devel ghostscript python-imaging python-devel</p>
-<p>在 http://zbar.sourceforge.net/download.html 下载源码包</p>
-<p>./configure --without-gtk --without-qt</p>
-<p>make &amp;&amp;make install</p>
-<p>写之前先鄙视下利用此开源程序收费的人。</p>
-<p>php-zbarcode是PHP识别二维码的扩展。</p>
-<p>下面是安装方法，安装前要先安装ImageMagick、zbar.</p>
-<p>php-zbarcode 下载地址</p>
-<p>安装ImageMagick：<br>
-yum install ImageMagick.x86_64 ImageMagick-devel.x86_64</p>
-<p>安装zbar：<br>
-wget http://jaist.dl.sourceforge.net/project/zbar/zbar/0.10/zbar-0.10.tar.bz2<br>
-tar jxvf zbar-0.10.tar.bz2<br>
-cd zbar-0.10<br>
-./configure –without-gtk –without-qt –without-python –prefix=/usr/local/zbar<br>
-make all<br>
-make install<br>
-echo “/usr/local/zbar/lib/” &gt;&gt; /etc/ld.so.conf<br>
-ldconfig<br>
-ln -s /usr/local/zbar/lib/pkgconfig/zbar.pc? /usr/lib64/pkgconfig/zbar.pc</p>
-<p>安装php-zbarcode：<br>
-wget https://github.com/lgchgt/php-zbarcode/archive/master.zip<br>
-unzip master<br>
-cd php-zbarcode-master<br>
-/usr/local/php/bin/phpize<br>
-./configure --with-php-config=/usr/local/php/bin/php-config<br>
-make &amp;&amp; make install</p>
-<p>查看是否有：zbarcode.so<br>
-ll /xxx/server/php/lib/php/extensions/no-debug-non-zts-20100525/<br>
-添加：extension=zbarcode.so 到php.ini配置文件<br>
-Build complete.<br>
-Don't forget to run 'make test'.</p>
-<p>Installing shared extensions:     /usr/local/php/lib/php/extensions/no-debug-non-zts-20060613/</p>
-<p>表示已经成功，再修改/usr/local/php/etc/php.ini</p>
-<p>查找：extension_dir 再下面一行添加上extension = &quot;imap.so&quot;</p>
-<p>保存，执行/etc/init.d/php-fpm restart 重启。<br>
-重启PHP:</p>
-<p>service php-fpm restart<br>
-运行 : php -i|grep zbar<br>
-检查是否安装功能</p>
-<p>创建文件：zbar.php</p>
-<?php
-/* Create new image object */
-$image = new ZBarCodeImage(“1.jpg”);
-
-/* Create a barcode scanner */
-$scanner = new ZBarCodeScanner();
-
-/* Scan the image */
-$barcode = $scanner->scan($image);
-print_r($barcode);
-/* Loop through possible barcodes */
-if (!empty($barcode)) {
-foreach ($barcode as $code) {
-printf(“Found type %s barcode with data %s\n”, $code[‘type’], $code[‘data’]);
-}
-}
-?>
-<p>验证结果;</p>
+            <p>挂载谷歌网盘google drive</p>
+<p>1、安装依赖包。<br>
+yum -y install epel-release<br>
+yum -y install wget unzip screen fuse fuse-devel<br>
+2、安装 Rclone (amd64)<br>
+wget https://downloads.rclone.org/rclone-current-linux-amd64.zip<br>
+unzip rclone-current-linux-amd64.zip<br>
+chmod 0755 ./rclone-<em>/rclone<br>
+cp ./rclone-</em>/rclone /usr/bin/<br>
+rm -rf ./rclone-*<br>
+3、配置谷歌令牌。<br>
+参考：https://rclone.org/drive/#making-your-own-client-id</p>
+<p>4、创建目录</p>
+<p>mkdir -p /home/gdrive</p>
+<p>5、配置：<br>
+rclone config</p>
+<p>6、挂载：<br>
+screen -S rclone</p>
+<p>rclone mount gdrive: /home/gdrive --allow-other --allow-non-empty --vfs-cache-mode writes</p>
+<p>windows<br>
+rclone mount gdrive:/ o: --cache-dir C:/rcloneTemp --allow-other --vfs-cache-mode writes --allow-non-empty</p>
 
           </div>
           
@@ -152,20 +117,18 @@ printf(“Found type %s barcode with data %s\n”, $code[‘type’], $code[‘d
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-05-30</div>
+              <div class="text-lg mb-6">2020-06-21</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">2 min read</div>
+              <div class="text-lg mb-6">1 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
 
   
-    
-  
 
   
     
@@ -175,6 +138,8 @@ printf(“Found type %s barcode with data %s\n”, $code[‘type’], $code[‘d
     
   
 
+  
+    
   
 
   

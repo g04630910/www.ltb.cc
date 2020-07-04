@@ -99,34 +99,39 @@
 <pre>
 //通过CDN使用：
 //第一种
-<script src="//cdn.jsdelivr.net/eruda/1.2.2/eruda.min.js"></script>
-<script>eruda.init();</script>
-<p>//第二种</p>
-<script src="//cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
-<p>//通过npm安装：<br>
-npm install eruda --save</p>
-<p>在页面中加载脚本：</p>
-<script src="node_modules/eruda/eruda.min.js"></script>
-<script>eruda.init();</script>
-<p>Js文件对于移动端来说略重（gzip后大概100kb）。建议通过url参数来控制是否加载调试器，比如：<br>
-(function () {<br>
-var src = 'node_modules/eruda/eruda.min.js';<br>
-if (!/eruda=true/.test(window.location) &amp;&amp; localStorage.getItem('active-eruda') != 'true') return;<br>
-document.write('&lt;scr' + 'ipt src=&quot;' + src + '&quot;&gt;&lt;/scr' + 'ipt&gt;');<br>
-document.write('&lt;scr' + 'ipt&gt;eruda.init();&lt;/scr' + 'ipt&gt;');<br>
-})();</p>
-<p>初始化时可以传入配置：<br>
-container: 用于插件初始化的Dom元素，如果不设置，默认创建div作为容器直接置于html根结点下面。<br>
-tool：指定要初始化哪些面板，默认加载所有。<br>
-let el = document.createElement('div');<br>
-document.body.appendChild(el);</p>
-<p>eruda.init({<br>
-container: el,<br>
-tool: ['console', 'elements'],<br>
-useShadowDom: true<br>
-});<br>
-</pre></p>
+&lt;script src="//cdn.jsdelivr.net/eruda/1.2.2/eruda.min.js"&gt;&lt/script&gt;
+&lt;script&gt;eruda.init();&lt/script&gt;
+//第二种
+&lt;script src="//cdn.jsdelivr.net/npm/eruda"&gt&lt/script&gt;
+&lt;script&gteruda.init();&lt;/script&gt;
+
+//通过npm安装：
+npm install eruda --save
+
+在页面中加载脚本：
+&lt;script src="node_modules/eruda/eruda.min.js"&gt;&lt/script&gt;
+&lt;script>eruda.init();&lt;/script&gt;
+
+Js文件对于移动端来说略重（gzip后大概100kb）。建议通过url参数来控制是否加载调试器，比如：
+(function () {
+    var src = 'node_modules/eruda/eruda.min.js';
+    if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
+    document.write('&lt;scr' + 'ipt src="' + src + '"&gt;&lt;/scr' + 'ipt&gt;');
+    document.write('&lt;scr' + 'ipt&gt;eruda.init();&lt;/scr' + 'ipt&gt;');
+})();
+
+初始化时可以传入配置：
+container: 用于插件初始化的Dom元素，如果不设置，默认创建div作为容器直接置于html根结点下面。
+tool：指定要初始化哪些面板，默认加载所有。
+let el = document.createElement('div');
+document.body.appendChild(el);
+
+eruda.init({
+    container: el,
+    tool: ['console', 'elements'],
+    useShadowDom: true
+});
+</pre>
 <p>2、下面再来介绍一下vConsole<br>
 特性：</p>
 <pre><code>查看 console 日志
@@ -140,11 +145,11 @@ useShadowDom: true<br>
 <p>1、这里可以直接下载最新版使用https://github.com/Tencent/vConsole/releases/tag/v3.3.0<br>
 下载完成后直接找到vconsole.min.js，在页面引入就可以<br>
 2、可以引用csdn<br>
-<pre><script src="https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js"></script><br>
-<script><br>
+<pre>&lt;script src=&quot;https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js&quot;&gt;&lt;/script&gt;<br>
+&lt;script&gt;<br>
 // 初始化<br>
 var vConsole = new VConsole();<br>
-</script></pre><br>
+&lt;/script&gt;</pre><br>
 3、使用 npm 安装：<br>
 npm install vconsole<br>
 再使用webpack，然后js代码中<br>
@@ -164,10 +169,14 @@ let vConsole = new VConsole() // 初始化</pre></p>
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">3 min read</div>
+              <div class="text-lg mb-6">4 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
+
+  
+    
+  
 
   
 

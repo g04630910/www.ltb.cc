@@ -3,15 +3,17 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>小程序反编译(支持分包） | 南岭笑笑生</title>
+<title>nfs操作 | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="目前只支持linux下执行
-./de_miniapp.sh  -d ./free.wxapkg
-">
+  <meta name="description" content="yum -y install nfs-utils rpcbind
+mkdir -p /home/nfs/192.168.0.37
+chmod 666 /home/nfs/192.168.0.37
+配置共享目录
+vi /etc/exports...">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -83,11 +85,53 @@
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">小程序反编译(支持分包）</h1>
+          <h1 class="text-4xl">nfs操作</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://www.ltb.cc/post-images/Rd3p8Etxm.jpg" alt="">
           
           <div class="mt-6 lg:mt-10 post-content">
-            <p>目前只支持linux下执行<br>
-./de_miniapp.sh  -d ./free.wxapkg</p>
+            <p>yum -y install nfs-utils rpcbind</p>
+<p>mkdir -p /home/nfs/192.168.0.37<br>
+chmod 666 /home/nfs/192.168.0.37<br>
+配置共享目录<br>
+vi /etc/exports<br>
+/home/nfs/192.168.0.37 192.168.0.37(rw,no_root_squash,no_all_squash,async)</p>
+<p>常见的参数则有：</p>
+<p>参数值    内容说明<br>
+rw　　ro    该目录分享的权限是可擦写 (read-write) 或只读 (read-only)，但最终能不能读写，还是与文件系统的 rwx 及身份有关。<br>
+sync　　async    sync 代表数据会同步写入到内存与硬盘中，async 则代表数据会先暂存于内存当中，而非直接写入硬盘！<br>
+no_root_squash　　root_squash    客户端使用 NFS 文件系统的账号若为 root 时，系统该如何判断这个账号的身份？预设的情况下，客户端 root 的身份会由 root_squash 的设定压缩成 nfsnobody， 如此对服务器的系统会较有保障。但如果你想要开放客户端使用 root 身份来操作服务器的文件系统，那么这里就得要开 no_root_squash 才行！<br>
+all_squash    不论登入 NFS 的使用者身份为何， 他的身份都会被压缩成为匿名用户，通常也就是 nobody(nfsnobody) 啦！<br>
+anonuid　　anongid    anon 意指 anonymous (匿名者) 前面关于 *_squash 提到的匿名用户的 UID 设定值，通常为 nobody(nfsnobody)，但是你可以自行设定这个 UID 的值！当然，这个 UID 必需要存在于你的 /etc/passwd 当中！ anonuid 指的是 UID 而 anongid 则是群组的 GID 啰。</p>
+<p>配置端口<br>
+vi /etc/sysconfig/nfs</p>
+<p>MOUNTD_PORT=&quot;4002&quot;<br>
+STATD_PORT=&quot;4003&quot;<br>
+LOCKD_TCPPORT=&quot;4004&quot;<br>
+LOCKD_UDPPORT=&quot;4004&quot;<br>
+配置生效</p>
+<p>[root@bogon ~]# exportfs -r</p>
+<p>启动rpcbind、nfs服务<br>
+service rpcbind start<br>
+service nfs start<br>
+service nfs-server start<br>
+service nfs-server status<br>
+开放指定端口<br>
+iptables -I INPUT -s 192.168.0.0/24 -p tcp --dport 111 -j ACCEPT<br>
+iptables -I INPUT -s 192.168.0.0/24 -p udp --dport 111 -j ACCEPT<br>
+iptables -I INPUT -s 192.168.0.0/24 -p tcp --dport 2049 -j ACCEPT<br>
+iptables -I INPUT -s 192.168.0.0/24 -p udp --dport 2049 -j ACCEPT<br>
+iptables -I INPUT -s 192.168.0.0/24 -p tcp --dport 4002:4004 -j ACCEPT<br>
+iptables -I INPUT -s 192.168.0.0/24 -p udp --dport 4002:4004 -j ACCEPT</p>
+<p>客户机：<br>
+安装：<br>
+yum -y install nfs-utils rpcbind</p>
+<p>先创建目录<br>
+mkdir -p /home/bak</p>
+<p>再查询主机状态</p>
+<p>showmount -e 192.168.0.35</p>
+<p>挂载<br>
+mount -t nfs 192.168.0.35:/home/nfs/192.168.0.37 /home/bak</p>
 
           </div>
           
@@ -96,25 +140,25 @@
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-07-14</div>
+              <div class="text-lg mb-6">2020-10-14</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">1 min read</div>
+              <div class="text-lg mb-6">3 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
 
   
-    
-  
 
   
     
   
 
+  
+    
   
 
   

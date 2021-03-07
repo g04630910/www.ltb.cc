@@ -99,26 +99,30 @@ sudo yum lis...">
 <h2><a href="https://github.com/xmrig/xmrig">门罗币(xmr)挖矿工具源码</a></h2>
 <h1>自建矿池笔记<h1>
 <div>
-sudo dnf config-manager --enable PowerTools
+<code>sudo dnf config-manager --enable PowerTools
 sudo yum list '*json-c*'
 Last metadata expiration check: 0:57:30 ago on Mon 07 Oct 2019 20:52:27 CES
 sudo dnf install dnf-plugins-core
 sudo dnf config-manager --set-enabled PowerTools
-sudo dnf install gtest gtest-devel
-VPS挖矿教程分3部分
-第一部分 申请 钱包  https://wallet.mymonero.com/   现在门罗币 XMR 还不错 可以用CPU挖 
-生成的密钥丢了 就凉凉 无论你有多币
-第二部分 需要找个 挖矿软件 这东西很多 windows linux 都有 我一般用 https://github.com/xmrig/xmrig/releases  我这里没有建议哦
-第三就是要找个矿池 最近蚂蚁矿池 门罗币关了  我临时找了个矿池  pool.supportxmr.com:3333
-查看状态用这个 https://www.supportxmr.com/  输入你的钱包地址就行了
-配置方面下载下来2个文件 以 Linux 为例   xmrig 是二进制文件 给个 权限 chmod +x xmrig
-config.json 里面改  2个地方
-"url":  写矿池地址 比如说 pool.supportxmr.com:3333
-"user": 写你钱包地址
-然后保存
-最后执行 ./xmrig 就行了  为了保证后台运行 先安装个screen 然后 你们懂的！
-官方钱包
-https://www.getmonero.org/downloads/
+sudo dnf install gtest gtest-devel</code>
+<h2>VPS挖矿教程分3部分</h2>
+<h3>第一部分 申请 钱包  https://wallet.mymonero.com/ <h3>
+<div><p>  现在门罗币 XMR 还不错 可以用CPU挖 </p>
+<p>生成的密钥丢了 就凉凉 无论你有多币</p></div>
+<h3>第二部分 需要找个 挖矿软件</h3>
+<div>
+<p> 这东西很多 windows linux 都有 我一般用 https://github.com/xmrig/xmrig/releases  我这里没有建议哦</p></div>
+</h3>第三就是要找个矿池 最近蚂蚁矿池</h3>
+<div><p> 门罗币关了  我临时找了个矿池  pool.supportxmr.com:3333</p>
+<p>查看状态用这个 https://www.supportxmr.com/  输入你的钱包地址就行了</p>
+<p>配置方面下载下来2个文件 以 Linux 为例   xmrig 是二进制文件 给个 权限 chmod +x xmrig</p>
+<p>config.json 里面改  2个地方</p>
+<p>"url":  写矿池地址 比如说 pool.supportxmr.com:3333</p>
+<p>"user": 写你钱包地址</p>
+<p>然后保存</p>
+<p>最后执行 ./xmrig 就行了  为了保证后台运行 先安装个screen 然后 你们懂的！</p></div>
+<h2>官方钱包</h2>
+<div><code>https://www.getmonero.org/downloads/
 mkdir ~/.bitmonero
 cd ~/.bitmonero
 touch monerod.conf
@@ -133,28 +137,27 @@ sudo wget https://gist.githubusercontent.com/mariodian/b8bb62de8f5aa5466cccb17f2
 sudo chmod 644 monerod.service</p>
 <p>sudo systemctl enable monerod<br>
 sudo service monerod start<br>
-monerod --config-file /root/.bitmonero/monerod.conf status<br>
-启动<br>
-/root/monero-x86_64-linux-gnu-v0.17.1.9/monerod --restricted-rpc --block-sync-size 100 --fluffy-blocks --confirm-external-bind --config-file /root/.bitmonero/monerod.conf --detach</p>
-<pre><code>--db-sync-mode 此參數可設定模式，safe效能較差但資料安全性較高，fastest則反之。
---block-sync-size 此參數可以設定區塊同步批次容量，10-200皆可，可依網路狀況選擇。
---fluffy-blocks 此參數可啟用fluffy blocks功能，節省區塊傳輸時的網路使用量。
---data-dir 此參數可以指定區塊鏈資料儲存的位置，預設為C:\ProgramData\bitmonero
---rpc-bind-ip 此參數須設定該台節點的IP。
---confirm-external-bind 此參數為允許外部錢包連入的必要參數。
---restricted-rpc 此參數可限制外部使用數個與安全性相關的API，建議使用。
---rpc-bind-port 此參數可更改預設的連入port 18081為指定數字。
-</code></pre>
-<p>curl -s https://copr.fedorainfracloud.org/coprs/r4sas/miniupnpc/repo/epel-8/r4sas-miniupnpc-epel-8.repo -o /etc/yum.repos.d/miniupnpc-epel-8.repo<br>
+monerod --config-file /root/.bitmonero/monerod.conf status</code></div></p>
+<h2>启动</h2>
+<div><code>/root/monero-x86_64-linux-gnu-v0.17.1.9/monerod --restricted-rpc --block-sync-size 100 --fluffy-blocks --confirm-external-bind --config-file /root/.bitmonero/monerod.conf --detach </code>
+   <p> --db-sync-mode 此參數可設定模式，safe效能較差但資料安全性較高，fastest則反之。</p>
+   <p>  --block-sync-size 此參數可以設定區塊同步批次容量，10-200皆可，可依網路狀況選擇。</p>
+  <p>   --fluffy-blocks 此參數可啟用fluffy blocks功能，節省區塊傳輸時的網路使用量。</p>
+   <p>  --data-dir 此參數可以指定區塊鏈資料儲存的位置，預設為C:\ProgramData\bitmonero</p>
+  <p>   --rpc-bind-ip 此參數須設定該台節點的IP。</p>
+  <p>   --confirm-external-bind 此參數為允許外部錢包連入的必要參數。</p>
+  <p>   --restricted-rpc 此參數可限制外部使用數個與安全性相關的API，建議使用。</p>
+    <p> --rpc-bind-port 此參數可更改預設的連入port 18081為指定數字。</p>
+<p><code>curl -s https://copr.fedorainfracloud.org/coprs/r4sas/miniupnpc/repo/epel-8/r4sas-miniupnpc-epel-8.repo -o /etc/yum.repos.d/miniupnpc-epel-8.repo<br>
 yum install epel-release -y<br>
-yum install miniupnpc -y</p>
+yum install miniupnpc -y</code></p>
 <p>git clone git://github.com/zeromq/libzmq.git  #从github上clone源代码，目录得自己提前cd好</p>
-<p>cd libzmq<br>
+<p><code>cd libzmq<br>
 ./autogen.sh<br>
 ./configure     # add other options here<br>
 make<br>
 make check<br>
-sudo make install</p>
+sudo make install</code></p>
  </div>
 
           </div>

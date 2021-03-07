@@ -123,22 +123,23 @@ sudo yum lis...">
 <p>然后保存</p>
 <p>最后执行 ./xmrig 就行了  为了保证后台运行 先安装个screen 然后 你们懂的！</p></div>
 <h2>官方钱包</h2>
-<div><code>https://www.getmonero.org/downloads/
-mkdir ~/.bitmonero
-cd ~/.bitmonero
-touch monerod.conf
-echo "data-dir=/home/satoshi/.bitmonero" >> monerod.conf
-echo "log-file=/home/satoshi/.bitmonero/monero.log" >> monerod.conf
-echo "log-level=0" >> monerod.conf
-echo "rpc-bind-ip=0.0.0.0" >> monerod.conf
-echo "rpc-bind-port=18081" >> monerod.conf
-echo "rpc-login=veryLongAndRandomUsername:veryLongAndRandomPassword" >> monerod.conf
-<p>cd /lib/systemd/system<br>
-sudo wget https://gist.githubusercontent.com/mariodian/b8bb62de8f5aa5466cccb17f280f439e/raw/db0a98573e0a8cc871781d8d43f03437ca159e22/monerod.service<br>
-sudo chmod 644 monerod.service</p>
-<p>sudo systemctl enable monerod<br>
-sudo service monerod start<br>
-monerod --config-file /root/.bitmonero/monerod.conf status</code></div></p>
+<div>
+<p>下载地址：https://www.getmonero.org/downloads/</p>
+<p>mkdir ~/.bitmonero</p>
+<p>cd ~/.bitmonero</p>
+<p>touch monerod.conf</p>
+<p>echo "data-dir=/home/satoshi/.bitmonero" >> monerod.conf</p>
+<p>echo "log-file=/home/satoshi/.bitmonero/monero.log" >> monerod.conf</p>
+<p>echo "log-level=0" >> monerod.conf</p>
+<p>echo "rpc-bind-ip=0.0.0.0" >> monerod.conf</p>
+<p>echo "rpc-bind-port=18081" >> monerod.conf</p>
+<p>echo "rpc-login=veryLongAndRandomUsername:veryLongAndRandomPassword" >> monerod.conf</p>
+<p>cd /lib/systemd/system</p>
+<p>sudo wget https://gist.githubusercontent.com/mariodian/b8bb62de8f5aa5466cccb17f280f439e/raw/db0a98573e0a8cc871781d8d43f03437ca159e22/monerod.service</p>
+<p>sudo chmod 644 monerod.service</p>
+<p>sudo systemctl enable monerod</p>
+<p>sudo service monerod start</p>
+monerod --config-file /root/.bitmonero/monerod.conf status</p></div>
 <h2>启动</h2>
 <div><code>/root/monero-x86_64-linux-gnu-v0.17.1.9/monerod --restricted-rpc --block-sync-size 100 --fluffy-blocks --confirm-external-bind --config-file /root/.bitmonero/monerod.conf --detach </code>
    <p> --db-sync-mode 此參數可設定模式，safe效能較差但資料安全性較高，fastest則反之。</p>

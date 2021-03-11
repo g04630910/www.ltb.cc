@@ -3,15 +3,17 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>NGINX跨域问题一次性解决。 | 南岭笑笑生</title>
+<title>RouterOS配置SSH证书登陆 | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="查看安装参数命令(取出：configure arguments:)
-/app/nginx/sbin/nginx -V
---user=www --group=www --prefix=/usr/local/nginx --with-http_...">
+  <meta name="description" content="配置SSH证书登陆
+
+生成证书 ssh-keygen -t rsa
+上传证书 scp ~/rou_rsa.pub rx@192.168.99.168:rou_rsa.pub
+配置证书 /user ssh-keys import public...">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -83,32 +85,29 @@
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">NGINX跨域问题一次性解决。</h1>
+          <h1 class="text-4xl">RouterOS配置SSH证书登陆</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://www.ltb.cc/post-images/TM-IU2nWd.png" alt="">
           
           <div class="mt-6 lg:mt-10 post-content">
-            <h1 id="查看安装参数命令取出configure-arguments">查看安装参数命令(取出：configure arguments:)</h1>
-<p>/app/nginx/sbin/nginx -V</p>
-<p>--user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --with-openssl=/root/lnmp1.7/src/openssl-1.1.1d --with-openssl-opt='enable-weak-ssl-ciphers' --add-module=/root/lnmp1.7/src/headers-more-nginx-module-0.33</p>
-<pre><code>    #   指定允许跨域的方法，*代表所有
-    more_set_headers &quot;Access-Control-Allow-Methods: *&quot;;
-
-    #   预检命令的缓存，如果不缓存每次会发送两次请求
-    more_set_headers &quot;Access-Control-Max-Age: 3600&quot;;
-    #   带cookie请求需要加上这个字段，并设置为true
-    more_set_headers &quot;Access-Control-Allow-Credentials: true&quot;;
-
-    #   表示允许这个域跨域调用（客户端发送请求的域名和端口） 
-    #   $http_origin动态获取请求客户端请求的域   不用*的原因是带cookie的请求不支持*号
-    more_set_headers &quot;Access-Control-Allow-Origin: $http_origin&quot;;
-
-    #   表示请求头的字段 动态获取
-     more_set_headers &quot;Access-Control-Allow-Headers: $http_access_control_request_headers&quot;;
-
-    #   OPTIONS预检命令，预检命令通过时才发送请求
-    #   检查请求的类型是不是预检命令
-    if ($request_method = OPTIONS){
-        return 200;
-    }</code></pre>
+            <h1>配置SSH证书登陆</h1>
+<div>
+<p>生成证书 ssh-keygen -t rsa</p>
+<p>上传证书 scp ~/rou_rsa.pub rx@192.168.99.168:rou_rsa.pub</p>
+<p>配置证书 /user ssh-keys import public-key-file=rou_rsa.pub user=rx</p>
+<p>查看证书 /user ssh-keys print</p>
+</div>
+<h1>脚本自动登陆SSH并执行命令</h1>
+<div>
+<xmp>#!/usr/bin/expect -f
+spawn ssh -i ~/rou_rsa rx@192.168.98.168
+set timeout 60
+expect "*RUIXUN*"
+send "/interface disable VPN-1\r"
+send "quit\r"
+interact 
+</xmp>
+</div>
 
           </div>
           
@@ -117,181 +116,271 @@
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-06-22</div>
+              <div class="text-lg mb-6">2021-03-11</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
                 
+                  <a href="https://www.ltb.cc/_uLx_R7_w/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">TCP/IP技术</a>
+                
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">2 min read</div>
+              <div class="text-lg mb-6">1 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
 
   
+
+  
+    
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
-    
-  
-
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
-  
-
-  
+      
     
   
 
   
     
+      
+    
   
 
   
     
+      
+    
   
 
+  
+    
+      
+    
+  
 
-  <div class="py-6 text-gray-700 text-sm">暂无相关文章</div>
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/xPbwTq0xn/" class="text-lg hover:underline my-2 inline-block">windows静态路由设置</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/tcpip-lu-you-ji-zhu-xue-xi-yi/" class="text-lg hover:underline my-2 inline-block">TCP/IP路由技术学习（一）</a>
+        </div>
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
 
               </div>
             </div>

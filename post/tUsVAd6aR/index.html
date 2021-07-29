@@ -3,17 +3,22 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>LINUX检查开放端口 | 南岭笑笑生</title>
+<title>重置ubuntu linux usb设备，断电后再上电方法 | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="netstat -lnpt | grep 8118
-netstat -nat|grep -i &amp;quot;443&amp;quot;
-netstat -an|findstr 80 windows下
-本地编辑：vi /etc/hosts
-增加 127...">
+  <meta name="description" content="重置ubuntu linux usb设备，断电后再上电方法
+步骤1
+ vi usbreset.c
+ 输入以下内容
+/*重启usb硬件端口*/
+#include 
+#include 
+#include 
+#include 
+#include ...">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -85,34 +90,57 @@ netstat -an|findstr 80 windows下
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">LINUX检查开放端口</h1>
+          <h1 class="text-4xl">重置ubuntu linux usb设备，断电后再上电方法</h1>
           
-            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Uploads/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20200319122046.png" alt="">
+            <img class="max-w-full mt-6 rounded-sm" src="https://www.ltb.cc/post-images/tUsVAd6aR.png" alt="">
           
           <div class="mt-6 lg:mt-10 post-content">
-            <p>netstat -lnpt | grep 8118<br>
-netstat -nat|grep -i &quot;443&quot;<br>
-netstat -an|findstr 80 windows下<br>
-本地编辑：vi /etc/hosts<br>
-增加 127.0.0.1 ltb.cc<br>
-cloudflared tunnel --hostname ltb.cc https://ltb.cc:443 --origin-ca-pool /home/ltb.cc.pem --origin-server-name ltb.cc<br>
-ubuntu代理<br>
-export http_proxy='http://127.0.0.1:8118'<br>
-export https_proxy='https://127.0.0.1:8118'<br>
-export ftp_proxy='hhttp://127.0.0.1:10080''<br>
-export no_proxy='localhost,127.0.0.1<br>
-vi /etc/apt/apt.conf apt代理<br>
-vi ~/.bashrc 全局自启<br>
-取消ubuntu代理<br>
-unset  http_proxy<br>
-unset https_proxy<br>
-LINUX使用百度网盘<br>
-下载：https://github.com/iikira/BaiduPCS-Go/releases<br>
-解压后：./BaiduPCS-Go login<br>
-设置保存目录：./BaiduPCS-Go config set -savedir /home/baidu<br>
-进入目录：./BaiduPCS-Go cd /<br>
-CF的<br>
-cloudflared tunnel --hostname yu.ltb.cc https://yu.ltb.cc:443 --origin-ca-pool /home/ltb.cc.pem --origin-server-name yu.ltb.cc --proxy-keepalive-timeout 24h --proxy-keepalive-connections 2000</p>
+            <h1>重置ubuntu linux usb设备，断电后再上电方法</h1>
+<h2>步骤1</h2>
+ <code>vi usbreset.c</code>
+ <h3>输入以下内容</h3>
+<pre>/*重启usb硬件端口*/
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <linux/usbdevice_fs.h>
+<p>int main(int argc, char **argv)<br>
+{<br>
+const char *filename;<br>
+int fd;<br>
+int rc;</p>
+<pre><code>if (argc != 2) {
+    fprintf(stderr, &quot;Usage: usbreset device-filename\n&quot;);
+    return 1;
+}
+filename = argv[1];//表示usb的ID
+
+fd = open(filename, O_WRONLY);
+if (fd &lt; 0) {
+    perror(&quot;Error opening output file&quot;);
+    return 1;
+}
+printf(&quot;reset USB By wmfy808\n&quot;);
+printf(&quot;Resetting USB device %s\n&quot;, filename);
+rc = ioctl(fd, USBDEVFS_RESET, 0);//ioctl是设备驱动中，对I/O设备进行管理的函数USBDEVFS_RESET 是对usb设备进行断电重启
+if (rc &lt; 0) {
+    perror(&quot;Error in ioctl&quot;);
+    return 1;
+}
+printf(&quot;Reset successful\n&quot;);
+
+close(fd);
+return 0;
+</code></pre>
+<p>}</pre></p>
+<h2>步骤2</h2>
+<h3>然后执行</h3>
+<pre>
+cc usbreset.c -o usbreset
+chmod +x usbreset
+<p>lsusb|sed  's/&quot;:&quot;//g'|awk '{print &quot;/root/usbreset /dev/bus/usb/&quot;$2&quot;/&quot;$4}'|sh</pre></p>
 
           </div>
           
@@ -121,11 +149,9 @@ cloudflared tunnel --hostname yu.ltb.cc https://yu.ltb.cc:443 --origin-ca-pool /
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-03-15</div>
+              <div class="text-lg mb-6">2021-07-29</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
-                
-                  <a href="https://www.ltb.cc/v-lxRDNPq/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">WEB服务器</a>
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
@@ -135,268 +161,173 @@ cloudflared tunnel --hostname yu.ltb.cc https://yu.ltb.cc:443 --origin-ca-pool /
                 
 
   
-    
-      
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
-        
-        <div class="border-t border-gray-400 py-6">
-          <a href="https://www.ltb.cc/post/GgERXjx8i/" class="text-lg hover:underline my-2 inline-block">An unhandled exception occurred: Cannot find module &#39;@angular-devkit/build-angular/package.json&#39;</a>
-        </div>
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
+  
+
+  
     
   
 
   
     
-      
-        
-        <div class="border-t border-gray-400 py-6">
-          <a href="https://www.ltb.cc/post/q4Sy914eC/" class="text-lg hover:underline my-2 inline-block">apache报错 Function not implemented: AH00141: Could not initialize random number genera</a>
-        </div>
-      
-    
   
 
   
     
-      
-    
   
 
-  
-    
-      
-        
-        <div class="border-t border-gray-400 py-6">
-          <a href="https://www.ltb.cc/post/61xQOPTM1/" class="text-lg hover:underline my-2 inline-block">请求被中止: 未能创建 SSL/TLS 安全通道。</a>
-        </div>
-      
-    
-  
 
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
+  <div class="py-6 text-gray-700 text-sm">暂无相关文章</div>
 
               </div>
             </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.ltb.cc</id>
     <title>南岭笑笑生</title>
-    <updated>2021-03-11T10:01:47.374Z</updated>
+    <updated>2021-07-29T07:49:45.815Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.ltb.cc"/>
     <link rel="self" href="https://www.ltb.cc/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://www.ltb.cc/images/avatar.png</logo>
     <icon>https://www.ltb.cc/favicon.ico</icon>
     <rights>All rights reserved 2021, 南岭笑笑生</rights>
+    <entry>
+        <title type="html"><![CDATA[重置ubuntu linux usb设备，断电后再上电方法]]></title>
+        <id>https://www.ltb.cc/post/tUsVAd6aR/</id>
+        <link href="https://www.ltb.cc/post/tUsVAd6aR/">
+        </link>
+        <updated>2021-07-29T07:18:11.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[RouterOS配置SSH证书登陆]]></title>
         <id>https://www.ltb.cc/post/TM-IU2nWd/</id>
@@ -72,12 +79,5 @@
         <link href="https://www.ltb.cc/post/TabxI3ZU0/">
         </link>
         <updated>2020-06-25T09:52:06.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[NGINX跨域问题一次性解决。]]></title>
-        <id>https://www.ltb.cc/post/BDh-mL9cO/</id>
-        <link href="https://www.ltb.cc/post/BDh-mL9cO/">
-        </link>
-        <updated>2020-06-22T03:05:21.000Z</updated>
     </entry>
 </feed>

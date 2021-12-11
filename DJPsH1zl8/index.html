@@ -3,18 +3,12 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>安卓apk反编译过程 | 南岭笑笑生</title>
+<title>南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="用到工具 apktool,jarsigner
-下载apktool 并改名apktool.jar 添加环境判变量：D:\duixiang\dec
-下载 apktool.bat 并放到D:\duixiang\dec
-先反编译成smali汇编代码...">
-  <script src="https://www.ltb.cc/media/prism.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
 <body>
   <div class="antialiased">
@@ -83,311 +77,54 @@
   </div>
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
-        <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">安卓apk反编译过程</h1>
-          
-            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Uploads/apk.png" alt="">
-          
-          <div class="mt-6 lg:mt-10 post-content">
-            <p>用到工具 apktool,jarsigner<br>
-下载apktool 并改名apktool.jar 添加环境判变量：D:\duixiang\dec<br>
-下载 apktool.bat 并放到D:\duixiang\dec<br>
-先反编译成smali汇编代码：命令：apktool d D:\duixiang\dec\a.apk<br>
-修改后再回编译成 命令：apk  apktool b D:\duixiang\dec\a<br>
-生成签名证书：keytool -genkey -alias key.keystore -keyalg RSA -validity 30000 -keystore key.keystore<br>
-签名：jarsigner -verbose -keystore D:\duixiang\dec\a\dist\key.keystore -signedjar D:\duixiang\dec\a\dist\b.apk D:\duixiang\dec\a\dist\a.apk key.keystore<br>
-然后就可以愉快的玩耍了。</p>
-
-          </div>
-          
-        </div>
-        
-          <div class="w-full md:w-1/3">
-            <div class="mt-6 md:pl-8">
-              <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-03-15</div>
-              <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
-              <div class="mb-6">
+        <div class="w-full md:w-2/3">
+  <div class="mt-6 lg:mt-10 border-b border-gray-400">
+    
+      <div class="border-t border-gray-400 py-6 sm:py-8 lg:py-10">
+        <div class="md:flex items-center justify-between">
+          <div>
+            <h3 class="text-gray-900 sm:text-lg lg:text-xl">
+              <a href="https://www.ltb.cc/post/Y3MLg7EEr/" class="hover:underline">4行命令，设置80和443只允许CF访问，防止被扫。</a>
+            </h3>
+            <div class="flex flex-wrap text-gray-700 text-sm sm:text-base lg:text-lg mt-2 sm:mt-3 lg:mt-3">
                 
-                  <a href="https://www.ltb.cc/cC8pzh9Pu/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">汇编</a>
+                  
+                    <a href="https://www.ltb.cc/DJPsH1zl8/" class="hover:underline hover:text-gray-900">iptables</a>
+                  
                 
-              </div>
-              <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">1 min read</div>
-              <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
-              <div class="border-b border-gray-400">
+                  
                 
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-  
-    
-      
-        
-        <div class="border-t border-gray-400 py-6">
-          <a href="https://www.ltb.cc/post/asm-learn/" class="text-lg hover:underline my-2 inline-block">汇编学习笔记（一）</a>
-        </div>
-      
-    
-  
-
-  
-    
-      
-    
-  
-
-
-              </div>
+                  
+                
+              
+              <div class="mx-2 text-gray-500">•</div>
+              <div>2021-12-10</div>
+              <div class="mx-2 text-gray-500">•</div>
+              <div>2 min read</div>
             </div>
           </div>
-        
+          
+            <div class="md:pl-2 mt-4 md:mt-0">
+              <a href="https://www.ltb.cc/post/Y3MLg7EEr/">
+                <img class="h-32 md:w-40 w-full object-cover rounded-sm" src="https://www.ltb.cc/post-images/Y3MLg7EEr.gif" alt="4行命令，设置80和443只允许CF访问，防止被扫。">
+              </a>
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+  <div class="mt-6 flex justify-between">
+    
+    
+  </div>
+</div>
+        <div class="w-full md:w-1/3 md:pl-8">
+          <div class="text-base font-thin text-gray-700 mb-2 mt-6 md:mt-8">当前标签</div>
+          <div>
+            <h1 class="text-2xl">iptables</h1>
+          </div>
+        </div>
       </div>
       <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
   <!-- Matomo -->
@@ -409,8 +146,5 @@
 </div>
     </div>
   </div>
-  <script>
-    Prism.highlightAll()
-  </script>
 </body>
 </html>

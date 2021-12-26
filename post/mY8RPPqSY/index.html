@@ -3,14 +3,20 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>手机端调试h5页面利器插件 | 南岭笑笑生</title>
+<title>CF节点官方公布的所有节点 | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="手机端调试h5页面利器插件
-现在越来越多的手机app或者公众号，里边大量的使用h5页面，而在手机端没法像pc谷歌浏览器那样调试页面，有些时候只能不断的进行alert，麻烦不说，有的时候还找不到问题所在。今天给大家介绍在手机端调试的一个插件，...">
+  <meta name="description" content="CF官方公布的所有优选节点
+官方发布地址
+https://www.cloudflare.com/zh-cn/ips/
+ipv4:
+173.245.48.0/20
+103.21.244.0/22
+103.22.200.0/22
+103.31....">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -82,80 +88,38 @@
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">手机端调试h5页面利器插件</h1>
+          <h1 class="text-4xl">CF节点官方公布的所有节点</h1>
+          
+            <img class="max-w-full mt-6 rounded-sm" src="https://www.ltb.cc/post-images/mY8RPPqSY.png" alt="">
           
           <div class="mt-6 lg:mt-10 post-content">
-            <p>手机端调试h5页面利器插件</p>
-<p>现在越来越多的手机app或者公众号，里边大量的使用h5页面，而在手机端没法像pc谷歌浏览器那样调试页面，有些时候只能不断的进行alert，麻烦不说，有的时候还找不到问题所在。今天给大家介绍在手机端调试的一个插件，能够打开控制台看输出信息。<br>
-1、首先介绍一下eruda插件</p>
-<p>(1) 按钮拖拽，面板透明度大小设置。</p>
-<p>(2)Console面板：捕获Console日志，支持log、error、info、warn、dir、time/timeEnd、clear、count、assert、table；支持占位符，包括%c自定义样式输出；支持按日志类型及正则表达式过滤；支持快捷命令加载underscore、jQuery库；支持JavaScript脚本执行。</p>
-<p>(3)Elements面板：查看标签内容及属性；查看应用在Dom上的样式；支持页面元素高亮；支持屏幕直接点击选取；查看Dom上绑定的各类事件。</p>
-<p>(4)Network面板：捕获请求，查看发送数据、返回头、返回内容等信息。</p>
-<p>(5)Resources面板：查看并清除localStorage、sessionStorage及cookie；查看页面加载脚本及样式文件；查看页面加载图片。</p>
-<p>(6)Sources面板：查看页面源码；格式化html，css，js代码及json数据。</p>
-<p>(7)Info面板：输出URL及User Agent；支持自定义输出内容。</p>
-<p>(8)Snippets面板：页面元素添加边框；加时间戳刷新页面；支持自定义代码片段</p>
-<pre>
-//通过CDN使用：
-//第一种
-&lt;script src="//cdn.jsdelivr.net/eruda/1.2.2/eruda.min.js"&gt;&lt/script&gt;
-&lt;script&gt;eruda.init();&lt/script&gt;
-//第二种
-&lt;script src="//cdn.jsdelivr.net/npm/eruda"&gt&lt/script&gt;
-&lt;script&gteruda.init();&lt;/script&gt;
-
-//通过npm安装：
-npm install eruda --save
-
-在页面中加载脚本：
-&lt;script src="node_modules/eruda/eruda.min.js"&gt;&lt/script&gt;
-&lt;script>eruda.init();&lt;/script&gt;
-
-Js文件对于移动端来说略重（gzip后大概100kb）。建议通过url参数来控制是否加载调试器，比如：
-(function () {
-    var src = 'node_modules/eruda/eruda.min.js';
-    if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
-    document.write('&lt;scr' + 'ipt src="' + src + '"&gt;&lt;/scr' + 'ipt&gt;');
-    document.write('&lt;scr' + 'ipt&gt;eruda.init();&lt;/scr' + 'ipt&gt;');
-})();
-
-初始化时可以传入配置：
-container: 用于插件初始化的Dom元素，如果不设置，默认创建div作为容器直接置于html根结点下面。
-tool：指定要初始化哪些面板，默认加载所有。
-let el = document.createElement('div');
-document.body.appendChild(el);
-
-eruda.init({
-    container: el,
-    tool: ['console', 'elements'],
-    useShadowDom: true
-});
-</pre>
-<p>2、下面再来介绍一下vConsole<br>
-特性：</p>
-<pre><code>查看 console 日志
-查看 console 日志
-查看网络请求
-查看页面 element 结构
-查看 Cookies、localStorage 和 SessionStorage
-手动执行 JS 命令行
-自定义插件
-</code></pre>
-<p>1、这里可以直接下载最新版使用https://github.com/Tencent/vConsole/releases/tag/v3.3.0<br>
-下载完成后直接找到vconsole.min.js，在页面引入就可以<br>
-2、可以引用csdn<br>
-<pre>&lt;script src=&quot;https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js&quot;&gt;&lt;/script&gt;<br>
-&lt;script&gt;<br>
-// 初始化<br>
-var vConsole = new VConsole();<br>
-&lt;/script&gt;</pre><br>
-3、使用 npm 安装：<br>
-npm install vconsole<br>
-再使用webpack，然后js代码中<br>
-<pre>import VConsole from 'vconsole/dist/vconsole.min.js'<br>
-let vConsole = new VConsole() // 初始化</pre></p>
-
+            <h1>CF官方公布的所有优选节点</h1>
+<h2>官方发布地址</h2>
+<p>https://www.cloudflare.com/zh-cn/ips/</p>
+<h2>ipv4:</h2>
+173.245.48.0/20</br>
+103.21.244.0/22</br>
+103.22.200.0/22</br>
+103.31.4.0/22</br>
+141.101.64.0/18</br>
+108.162.192.0/18</br>
+190.93.240.0/20</br>
+188.114.96.0/20</br>
+197.234.240.0/22</br>
+198.41.128.0/17</br>
+162.158.0.0/15</br>
+104.16.0.0/13</br>
+104.24.0.0/14</br>
+172.64.0.0/13</br>
+131.0.72.0/22</br>
+<h2>IPv6</h2>
+2400:cb00::/32</br>
+2606:4700::/32</br>
+2803:f800::/32</br>
+2405:b500::/32</br>
+2405:8100::/32</br>
+2a06:98c0::/29</br>
+2c0f:f248::/32</br>
           </div>
           
         </div>
@@ -163,13 +127,13 @@ let vConsole = new VConsole() // 初始化</pre></p>
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-07-01</div>
+              <div class="text-lg mb-6">2021-12-11</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">4 min read</div>
+              <div class="text-lg mb-6">1 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
@@ -179,8 +143,6 @@ let vConsole = new VConsole() // 初始化</pre></p>
   
 
   
-    
-  
 
   
     
@@ -222,6 +184,8 @@ let vConsole = new VConsole() // 初始化</pre></p>
     
   
 
+  
+    
   
 
   

@@ -3,13 +3,19 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>apache报错 Function not implemented: AH00141: Could not initialize random number genera | 南岭笑笑生</title>
+<title>python百度收录批量查询 | 南岭笑笑生</title>
 <link rel="stylesheet" href="https://www.ltb.cc/styles/main.css">
 <script src="https://www.ltb.cc/media/script.js"></script>
 
     
 
-  <meta name="description" content="Centos7下用lnmp一键包启动后报错 start apache... [Sat Apr 11 16:37:39.208150 2020] [:crit] [pid 27716] (38)Function not implemented...">
+  <meta name="description" content="python版本 3.8
+安装以下插件
+pip3 install requests
+pip3 install json
+pip3 install lxml
+pip3 install selenium
+然后到到https://chromedr...">
   <script src="https://www.ltb.cc/media/prism.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 </head>
@@ -81,45 +87,132 @@
 </div>
       <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
         <div class="w-full md:w-2/3 mt-6">
-          <h1 class="text-4xl">apache报错 Function not implemented: AH00141: Could not initialize random number genera</h1>
+          <h1 class="text-4xl">python百度收录批量查询</h1>
           
-            <img class="max-w-full mt-6 rounded-sm" src="https://ret-1301130279.cos.ap-guangzhou.myqcloud.com/Xcx/apache.png" alt="">
+            <img class="max-w-full mt-6 rounded-sm" src="https://www.ltb.cc/post-images/_3JJkzYkr.png" alt="">
           
           <div class="mt-6 lg:mt-10 post-content">
-            <p>Centos7下用lnmp一键包启动后报错 start apache... [Sat Apr 11 16:37:39.208150 2020] [:crit] [pid 27716] (38)Function not implemented: AH00141: Could not initialize random number generator<br>
-报这个错是因为centos内核太低了。需要升级centos7内核。<br>
-用以下命令升级内核<br>
-<code>rpm -import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</code><br>
-<code>rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</code><br>
-<code>yum --disablerepo=&quot;*&quot; --enablerepo=&quot;elrepo-kernel&quot; list available</code><br>
-<code>yum -y --enablerepo=elrepo-kernel install kernel-ml.x86_64 kernel-ml-devel.x86_64</code><br>
-内核升级完成后要调整启动顺序<br>
-1、查看内核启动顺序<br>
-<code>[root@localhost lnmp1.7]# awk -F\' '$1==&quot;menuentry &quot; {print $2}' /etc</code><br>
-<code>grub2.cfg</code><br>
-<code>CentOS Linux (5.6.3-1.el7.elrepo.x86_64) 7 (Core)</code><br>
-<code>CentOS Linux (3.10.0-327.el7.x86_64) 7 (Core)</code><br>
-<code>CentOS Linux (0-rescue-15739e762162496598fdf3c3eb4eaa7b) 7 (Core)</code><br>
-[root@localhost lnmp1.7]#<code>新内核顺序为0 2、修改内核启动顺序为0</code>vi  /etc/default/grub`</p>
-<p>GRUB_DISTRIBUTOR=&quot;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>s</mi><mi>e</mi><msup><mi>d</mi><mo mathvariant="normal">′</mo></msup><mi>s</mi><mo separator="true">,</mo><mi>r</mi><mi>e</mi><mi>l</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi mathvariant="normal">.</mi><mo>∗</mo></mrow><annotation encoding="application/x-tex">(sed &#x27;s, release .*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord">∗</span></span></span></span>,,g' /etc/system-release)&quot;<br>
-<code>GRUB_DEFAULT=0</code><br>
-GRUB_DISABLE_SUBMENU=true<br>
-GRUB_TERMINAL_OUTPUT=&quot;console&quot;<br>
-GRUB_CMDLINE_LINUX=&quot;crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet&quot;<br>
-GRUB_DISABLE_RECOVERY=&quot;true&quot;<br>
-3、接着用命令来创建内核配置<br>
-<code>grub2-mkconfig -o /boot/grub2/grub.cfg</code><br>
-[root@localhost lnmp1.7]# grub2-mkconfig -o /boot/grub2/grub.cfg<br>
-Generating grub configuration file ...<br>
-Found linux image: /boot/vmlinuz-5.6.3-1.el7.elrepo.x86_64<br>
-Found initrd image: /boot/initramfs-5.6.3-1.el7.elrepo.x86_64.img<br>
-Found linux image: /boot/vmlinuz-3.10.0-327.el7.x86_64<br>
-Found initrd image: /boot/initramfs-3.10.0-327.el7.x86_64.img<br>
-Found linux image: /boot/vmlinuz-0-rescue-15739e762162496598fdf3c3eb4eaa7b<br>
-Found initrd image: /boot/initramfs-0-rescue-15739e762162496598fdf3c3eb4eaa7b.img<br>
-done<br>
-最后重启<br>
-然后重新安装lnmpa</p>
+            <p>python版本 3.8<br>
+安装以下插件</p>
+<p>pip3 install requests<br>
+pip3 install json<br>
+pip3 install lxml<br>
+pip3 install selenium</p>
+<p>然后到到https://chromedriver.storage.googleapis.com/index.html  下载对应版本谷歌<br>
+浏览器驱动 放到本目录覆蓋chromedriver.exe。<br>
+如果不知道版本，执行一下 python main.py<br>
+github地址<br>
+https://github.com/linwoodpendleton/baidusoulu<br>
+如下图：<br>
+<img src="https://www.ltb.cc/post-images/1640498916082.png" alt="" loading="lazy"><br>
+原码：<br>
+code:<br>
+<code><br>
+import json<br>
+import random</p>
+<p>import requests<br>
+import time<br>
+from random import randint<br>
+from lxml import etree<br>
+from selenium import webdriver<br>
+from selenium.webdriver.chrome.options import Options<br>
+from selenium.webdriver.support.wait import WebDriverWait<br>
+from selenium.webdriver.support import expected_conditions as EC<br>
+from selenium.webdriver.common.by import By<br>
+from selenium.webdriver.chrome.service import Service<br>
+chrome_options = Options()<br>
+cookies_str = 'BDORZ=xxxooo; BA_HECTOR=xxxooo; BDRCVFR[xxxoo]=xxxooo; H_PS_PSSID=xxxooo; H_WISE_SIDS=xxxooo'  #百度cookies直接浏览器复制过来即可<br>
+chrome_options.add_argument(&quot;--start-maximized&quot;)<br>
+s = Service('chromedriver.exe')  #谷歌浏览器驱动，到https://chromedriver.storage.googleapis.com/index.html下载对应版本<br>
+driver = webdriver.Chrome(service=s, options=chrome_options)<br>
+driver.implicitly_wait(10)<br>
+driver.get('http://www.baidu.com')<br>
+def cookies_to_dict(cookie):<br>
+cookies = cookie.split(&quot;; &quot;)<br>
+for co in cookies:<br>
+cookieDict = {}<br>
+co = co.strip()<br>
+p = co.split('=')<br>
+value = co.replace(p[0] + '=', '').replace('&quot;', '')<br>
+cookieDict[&quot;name&quot;] = p[0]<br>
+cookieDict[&quot;value&quot;] = value<br>
+driver.add_cookie(cookieDict)</p>
+<p>def check_index_number(url):<br>
+&quot;&quot;&quot;<br>
+查询网址被百度收录的数量<br>
+:param url: 要查询的网址<br>
+:return: 返回被百度收录的数量<br>
+&quot;&quot;&quot;<br>
+url_a = 'https://www.baidu.com/s?wd=site%3A'<br>
+url_b = '&amp;pn=1'<br>
+joinUrl = url_a + url + url_b<br>
+try:<br>
+cookies_to_dict(cookies_str)<br>
+driver.implicitly_wait(10)<br>
+driver.get(joinUrl)  # 获取网页<br>
+except:<br>
+return ' '<br>
+try:<br>
+index_number = driver.find_element(By.XPATH,'//<em>[@id=&quot;1&quot;]/div/div[1]/div/p[3]/span/b').text<br>
+try:<br>
+yanzen = driver.find_element(By.XPATH,'//</em>[@id=&quot;pass-slide-tipInfo62&quot;]').text<br>
+except:<br>
+yanzen = None<br>
+except:<br>
+index_number = 0<br>
+yanzen = ''<br>
+pass<br>
+return index_number,yanzen</p>
+<p>def getUrl(filepath):<br>
+with open(filepath, &quot;r&quot;) as f:<br>
+f = f.readlines()<br>
+return f</p>
+<p>def get_hostloc(url):<br>
+cookies_to_dict(cookies_str)<br>
+try:</p>
+<pre><code>    driver.get(url)  # 获取网页
+    driver.implicitly_wait(10)
+except:
+    return ' '
+try:
+    yanzen = driver.find_element(By.XPATH, '/html/body/div[4]/div[1]/div/p[1]')
+except:
+    yanzen = None
+page_source = driver.find_element(By.XPATH,&quot;//body&quot;).text
+return page_source,yanzen
+</code></pre>
+<p>def isindex(link):<br>
+link = link.replace(&quot;http://&quot;, &quot;&quot;)<br>
+link = link.replace(&quot;https://&quot;, &quot;&quot;).replace(&quot;/&quot;, &quot;%2F&quot;)<br>
+url = link<br>
+url = &quot;http://www.baidu.com/s?wd=&quot; + url<br>
+html,yanzen = get_hostloc(url)<br>
+with open(&quot;result.txt&quot;, 'a') as f:<br>
+if &quot;没有找到与&quot; in html or &quot;没有找到该URL&quot; in html or html=='':<br>
+if yanzen:<br>
+print(link, &quot;出现验证码&quot;)<br>
+else:<br>
+print(link, &quot;未收录&quot;)<br>
+else:<br>
+if  yanzen:<br>
+print(link, &quot;出现验证码&quot;)<br>
+else:<br>
+print(link, &quot;收录&quot;)<br>
+indexed_number, yanzen = check_index_number(link)<br>
+if yanzen:<br>
+print(link, &quot;出现验证码&quot;)<br>
+f.write(link + '\t出现验证码\n')<br>
+else:<br>
+f.write(link + '\t' + str(indexed_number) + '\n')</p>
+<p>def main():<br>
+filepath = &quot;url.txt&quot;  # 待查询的URL链接文本，一行一个<br>
+urls = getUrl(filepath)<br>
+for url in urls:<br>
+url = url.strip()<br>
+isindex(url)</p>
+<p>if <strong>name</strong> == '<strong>main</strong>':<br>
+main()<br>
+</code></p>
 
           </div>
           
@@ -128,26 +221,27 @@ done<br>
           <div class="w-full md:w-1/3">
             <div class="mt-6 md:pl-8">
               <h4 class="text-base font-thin text-gray-700 mb-2">发布时间</h4>
-              <div class="text-lg mb-6">2020-04-11</div>
+              <div class="text-lg mb-6">2021-12-24</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">标签</h4>
               <div class="mb-6">
+                
+                  <a href="https://www.ltb.cc/qq4D1tDjH/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">Gridea</a>
                 
                   <a href="https://www.ltb.cc/v-lxRDNPq/" class="py-1 px-4 border-gray-300 border text-sm inline-block text-gray-700 hover:text-gray-900 rounded mr-2 mb-2">WEB服务器</a>
                 
               </div>
               <h4 class="text-base font-thin text-gray-700 mb-2">阅读时间</h4>
-              <div class="text-lg mb-6">2 min read</div>
+              <div class="text-lg mb-6">4 min read</div>
               <h4 class="text-base font-thin text-gray-700 mb-2">相关阅读</h4>
               <div class="border-b border-gray-400">
                 
 
   
+
+  
     
       
-        
-        <div class="border-t border-gray-400 py-6">
-          <a href="https://www.ltb.cc/post/_3JJkzYkr/" class="text-lg hover:underline my-2 inline-block">python百度收录批量查询</a>
-        </div>
+    
       
     
   
@@ -155,10 +249,6 @@ done<br>
   
     
       
-    
-  
-
-  
     
       
         
@@ -173,9 +263,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -185,9 +279,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -197,9 +295,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -209,9 +311,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -221,9 +327,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -233,9 +343,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -245,9 +359,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -257,9 +375,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -269,9 +391,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
         
@@ -286,9 +412,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -298,11 +428,26 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
+    
+      
+        
+        <div class="border-t border-gray-400 py-6">
+          <a href="https://www.ltb.cc/post/q4Sy914eC/" class="text-lg hover:underline my-2 inline-block">apache报错 Function not implemented: AH00141: Could not initialize random number genera</a>
+        </div>
+      
+    
+  
 
   
+    
+      
     
       
     
@@ -312,9 +457,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -324,9 +473,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -336,9 +489,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -348,9 +505,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -360,9 +521,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -372,9 +537,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -384,9 +553,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -396,9 +569,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -408,9 +585,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
@@ -420,9 +601,13 @@ done<br>
     
       
     
+      
+    
   
 
   
+    
+      
     
       
     
